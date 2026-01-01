@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  ci-runner:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: >
+      sh -c "
+        npm install &&
+        npm run lint &&
+        npm run type-check &&
+        npm run test:unit -- --coverage &&
+        npm run build:core &&
+        npm run build:web
+        # Note: e2e tests might require a more complex setup with browsers installed (e.g. mcr.microsoft.com/playwright:v1.35.0-jammy)
+        # For this basic node alpine image, we skip full browser e2e or assume headless chrome is available if added.
+        # Alternatively, switch image to mcr.microsoft.com/playwright:v1.35.0-jammy for full e2e support.
+      "
+# Directive 5: Generate docker-compose.ci.yml (Local CI/CD)

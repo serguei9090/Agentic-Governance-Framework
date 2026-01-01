@@ -1,0 +1,36 @@
+name: "Local CI/CD Pipeline"  
+description: "Enforces Master Protocol standards before code commit."
+
+variables:  
+  REPORTS_DIR: "./artifacts/reports"  
+  COVERAGE_DIR: "./artifacts/coverage"
+
+stages:  
+  - name: "Sanity Check"  
+    steps:  
+      - command: "npm run lint"  
+        description: "Checks code style and import sorting (Standard 2)."  
+      - command: "npm run type-check"  
+        description: "Verifies TypeScript integrity."
+
+  - name: "Logic Verification (TDD)"  
+    steps:  
+      - command: "npm run test:unit -- --coverage"  
+        description: "Runs Jest unit tests. Fails if coverage < 80% (Standard 3)."  
+        output: "${COVERAGE_DIR}/lcov-report/index.html"
+
+  - name: "Build Verification"  
+    steps:  
+      - command: "npm run build:core"  
+      - command: "npm run build:web"  
+        description: "Ensures the app compiles for desktop/web."
+
+  - name: "User Simulation (E2E)"  
+    steps:  
+      - command: "npm run test:e2e"  
+        description: "Runs Playwright scenarios against the built web app."  
+        output: "${REPORTS_DIR}/playwright-report"
+
+  - name: "Containerized Execution"  
+    instruction: "Run the following command to execute all above steps in isolation:"  
+    command: "docker-compose -f docker-compose.ci.yml up --abort-on-container-exit"
