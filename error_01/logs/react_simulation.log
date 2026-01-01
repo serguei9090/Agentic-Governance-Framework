@@ -1,0 +1,24 @@
+2026-01-01T23:03:15.650Z - SYSTEM - Starting React Error Handling Simulation
+2026-01-01T23:03:15.662Z - SCENARIO - --- Scenario 1: Validation Error (422) ---
+2026-01-01T23:03:15.663Z - NETWORK - Simulating API Error 422
+2026-01-01T23:03:15.664Z - INTERCEPTOR - Handling error status: 422
+2026-01-01T23:03:15.665Z - INTERCEPTOR - Case 1: 422 Validation Error -> Rejecting for Form Handling
+2026-01-01T23:03:15.666Z - APP_LOGIC - Promise Rejected as expected: Request failed
+2026-01-01T23:03:15.667Z - SCENARIO - --- Scenario 2: Auth Error (401) ---
+2026-01-01T23:03:15.668Z - NETWORK - Simulating API Error 401
+2026-01-01T23:03:15.669Z - INTERCEPTOR - Handling error status: 401
+2026-01-01T23:03:15.670Z - INTERCEPTOR - Case 2: 401 Unauthorized -> Redirecting to /login
+2026-01-01T23:03:15.671Z - NAVIGATION - window.location.href = '/login'
+2026-01-01T23:03:15.671Z - APP_LOGIC - Promise Rejected as expected: Request failed
+2026-01-01T23:03:15.672Z - SCENARIO - --- Scenario 3: Server Crash (500) ---
+2026-01-01T23:03:15.672Z - NETWORK - Simulating API Error 500
+2026-01-01T23:03:15.673Z - INTERCEPTOR - Handling error status: 500
+2026-01-01T23:03:15.674Z - UI_TOAST - Showing user error: "Server Error. Please try again later."
+2026-01-01T23:03:15.674Z - INTERCEPTOR - Logged Support Trace ID: abc-123-crash
+2026-01-01T23:03:15.675Z - APP_LOGIC - Promise Rejected as expected: Request failed
+2026-01-01T23:03:15.675Z - SCENARIO - --- Scenario 4: Unknown Error (503) ---
+2026-01-01T23:03:15.676Z - NETWORK - Simulating API Error 503
+2026-01-01T23:03:15.677Z - INTERCEPTOR - Handling error status: 503
+2026-01-01T23:03:15.678Z - UI_TOAST - Showing user error: "Network Error. Check your connection."
+2026-01-01T23:03:15.679Z - APP_LOGIC - Promise Rejected as expected: Request failed
+2026-01-01T23:03:15.680Z - SYSTEM - Demonstration Complete

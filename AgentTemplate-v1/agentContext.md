@@ -11,8 +11,8 @@ INSTRUCTION: You are to create the following directory structure and file conten
 
 ### **Target Directory Structure**
 ```
+AGENTS.MD
 .agent/
-├── AGENTS.MD
 └── rules/
     ├── code_styleguides/
     ├── atomic_design_rules.md
@@ -32,7 +32,7 @@ INSTRUCTION: You are to create the following directory structure and file conten
 
 ## **PART 2: File Content Specifications**
 
-### **1. `.agent/AGENTS.MD` (The Persona)**
+### **1. `AGENTS.MD` (The Persona)** (Project Root)
 *   **Purpose:** Defines the "Identity" of the AI Agent working on this project.
 *   **Required Content:**
     *   Role: Senior Full-Stack Architect & Engineer.

@@ -1,0 +1,11 @@
+2026-01-01 18:03:15,374 - api - INFO - Operational Error: Validation Failed (Trace: df3d96e4-d0f2-4eca-a451-92e8ca69befa)
+2026-01-01 18:03:15,375 - api - INFO - Operational Error: Email already registered (Trace: ef527be6-827f-4554-9c30-9467530ba787)
+2026-01-01 18:03:15,375 - api - ERROR - SYSTEM CRASH: division by zero (Trace: 45d53568-9994-4321-b52d-363743e1b018)
+Traceback (most recent call last):
+  File "I:\01-Master_Code\Test-Labs\ProjectInitAiPromt\error_01\python_app.py", line 95, in run_scenario
+    logic_func()
+    ~~~~~~~~~~^^
+  File "I:\01-Master_Code\Test-Labs\ProjectInitAiPromt\error_01\python_app.py", line 111, in scenario_system_crash
+    x = 1 / 0
+        ~~^~~
+ZeroDivisionError: division by zero
