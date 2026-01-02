@@ -76,7 +76,7 @@ AGENTS.MD
 ### **7. `.agent/rules/ErrorHandlingDirective.md` (Resilience)**
 *   **Purpose:** Handling failures gracefully.
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `ErrorHandlingDirective.md` verbatim into this file.
+    *   **Source:** You MUST copy the content of `Context/ErrorHandlingDirective.md` verbatim into this file.
     *   **Directives:** Ensure strict adherence to RFC 7807, 4xx/5xx separation, and security sanitization as defined in the source directive.
 
 ### **8. `.agent/rules/security.md` (Defense)**
