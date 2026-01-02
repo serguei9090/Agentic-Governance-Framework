@@ -62,6 +62,8 @@ AGENTS.MD
 ### **5. `.agent/rules/standarts.md` (Coding Standards)**
 *   **Purpose:** granular code style and hygiene.
 *   **Required Content:**
+    *   **Source:** You MUST copy the content of `context/rules/CodeQualityFramework/CodeQualityFramework.md` verbatim into this file.
+    *   **Toolchain:** Enforce usage of **ESLint + SonarJS** (Logic), **Prettier** (Style), and **Lefthook** (Git Hooks).
     *   **Naming:** PascalCase for Components, camelCase for functions/vars.
     *   **Comments:** JSDoc for complex logic; clean code preferred over excessive comments.
     *   **File Structure:** Co-location of files (Component + Test + Story).
@@ -99,9 +101,21 @@ AGENTS.MD
 
 #### **`.agent/rules/performance.md`**
 *   **Required Content:**
-    *   Core Web Vitals (LCP, CLS, FID) targets.
-    *   React rendering optimization (useMemo, useCallback usage guidelines).
-    *   Bundle size limits.
+    *   **Source:** You MUST copy the content of `context/rules/Performance/PerformanceBudget.md` verbatim into this file.
+    *   **Directives:** Block any PR that exceeds 2.5s LCP or 150KB Initial Bundle.
+    *   **Tooling:** Enforce via Lighthouse CI.
+
+#### **`.agent/rules/state_management.md`**
+*   **Purpose:** Architecture for Data vs UI State.
+*   **Required Content:**
+    *   **Source:** You MUST copy the content of `context/rules/StateManagement/StateManagement.md` verbatim into this file.
+    *   **Constraint:** Strictly separate Server State (React Query) from Client State (Zustand).
+
+#### **`.agent/rules/i18n.md`**
+*   **Purpose:** Global Scale Readiness.
+*   **Required Content:**
+    *   **Source:** You MUST copy the content of `context/rules/Internationalization/i18nProtocol.md` verbatim into this file.
+    *   **Constraint:** No hardcoded strings. Use `i18next` keys in nested JSON format.
 
 #### **`.agent/rules/api_documentation.md`**
 *   **Required Content:**
