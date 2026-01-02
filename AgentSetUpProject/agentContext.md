@@ -69,7 +69,9 @@ AGENTS.MD
 ### **6. `.agent/rules/test.md` (Quality Assurance)**
 *   **Purpose:** The Testing & Linting Mandate.
 *   **Required Content:**
-    *   **Unit Tests:** Every component/function MUST have a `.test.ts/tsx` file (Jest/Vitest).
+    *   **Source:** You MUST copy the content of `context/rules/TestsFramework/TestingArchitecture.md` verbatim into this file.
+    *   **Modes:** Reference `context/rules/TestsFramework/MasterAgentOpsMode.md` for identifying "New Feature" vs "Retrofit" modes.
+    *   **Unit Tests:** Every component/function MUST have a `.test.ts/tsx` file (Vitest).
     *   **Linting:** Run `npm run lint` and `npm run type-check` before any commit.
     *   **Reports:** All test reports must be generated in `./reports/` (e.g., `./reports/coverage/`, `./reports/junit.xml`).
     *   **Coverage:** Minimum 80% mandatory.
