@@ -42,6 +42,7 @@ AGENTS.MD
 ### **2. `.agent/rules/atomic_design_rules.md` (Design System)**
 *   **Purpose:** Enforce the 3-Tier Atomic Architecture defined in `agentproject_setup.md`.
 *   **Required Content:**
+    *   **Source:** You MUST copy the content of `context/rules/UI_Framework/AtomicDesignFramework.md` verbatim into this file.
     *   **Tier 1 (Tokens):** Rules for using `packages/ui/src/tokens`. NEVER hardcode hex values.
     *   **Tier 2 (Primitives):** Rules for `packages/ui/src/components`. Components must be pure, stateless (mostly), and have **ZERO external margins**.
     *   **Tier 3 (Features):** Rules for Feature/Page assembly. This is where business logic and layout (margins/positioning) live.
@@ -76,12 +77,13 @@ AGENTS.MD
 ### **7. `.agent/rules/ErrorHandlingDirective.md` (Resilience)**
 *   **Purpose:** Handling failures gracefully.
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `Context/ErrorHandlingDirective.md` verbatim into this file.
+    *   **Source:** You MUST copy the content of `context/rules/ErrorFramework/ErrorHandlingDirective.md` verbatim into this file.
     *   **Directives:** Ensure strict adherence to RFC 7807, 4xx/5xx separation, and security sanitization as defined in the source directive.
 
 ### **8. `.agent/rules/security.md` (Defense)**
 *   **Purpose:** OWASP Top 10 mitigation.
 *   **Required Content:**
+    *   **Source:** You MUST copy the content of `context/rules/SecurityFramework/SecurityFramework.md` verbatim into this file.
     *   **Input:** Validate EVERYTHING (Zod/Yup schemas).
     *   **Output:** Escape all HTML (prevent XSS).
     *   **Auth:** Directives on avoiding client-side secrets.
