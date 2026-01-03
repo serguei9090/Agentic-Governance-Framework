@@ -13,8 +13,10 @@ INSTRUCTION: You are to create the following directory structure and file conten
 ```
 AGENTS.MD
 .agent/
+├── workflows/
 └── rules/
     ├── code_styleguides/
+    ├── atomic_design_rules.md
     ├── atomic_design_rules.md
     ├── diagramuml.md
     ├── relations.md
@@ -136,6 +138,12 @@ AGENTS.MD
     *   **Source 1:** `context/rules/CICD/CiCdFramework.md`
     *   **Source 2:** `context/rules/CICD/CICDTools.md` (The Manifest)
     *   **Protocol:** "Master Switch". Check `CICDTools.md`. If "Level 0" is selected, do NOT generate any pipeline files. If "Level 1+", enforce the Matrix.
+
+### **13. Agentic Workflows**
+*   **Goal:** Standardized operational procedures for the Agent.
+*   **Directives:**
+    *   **Source:** Copy all files from `context/workflows/*.md` to `.agent/workflows/`.
+    *   **Purpose:** These files define how to perform complex multi-step tasks (like "Generate Report") deterministically.
 
 ---
 

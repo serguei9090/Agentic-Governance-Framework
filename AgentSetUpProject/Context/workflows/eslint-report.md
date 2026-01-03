@@ -17,6 +17,7 @@ Run repo linting and capture results in `reports/code_lint_report.md` plus a det
 
 ### 2) Run lint
 - From the repo root, run `npm run lint`.
+- **Optimization:** If available or if accuracy is critical, use `npm run lint -- --format json` to get a machine-readable output.
 - Capture pass/fail summary and any notable warnings or failures.
 - If lint runs per workspace (e.g., via Turbo), note each package/workspace result.
 

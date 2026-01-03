@@ -21,6 +21,7 @@ Run the repo unit tests and coverage, then capture the results in `reports/code_
 
 ### 3) Run coverage
 - From repo root, run `npm run test:coverage`.
+- **Optimization:** Ensure the `text-summary` reporter is used (if supported) to get a concise console output, or parse the `reports/coverage/index.html` if available.
 - Capture coverage summaries for each workspace/package and any failures.
 - Code Coverage acceptance criteria is > 80%
 
