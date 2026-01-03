@@ -75,10 +75,13 @@ AGENTS.MD
     *   **Tokens:** Define `transition_instant`, `transition_fast`, `transition_deliberate`.
     *   **Reflex:** Use `rx.cond` or `style` props for transitions.
 
-### **4. `.agent/rules/Architecture/DiagramStandards.md`**
-*   **Purpose:** Instructions for generating diagrams.
+### **4. `.agent/rules/Architecture/DiagramFramework.md`**
+*   **Purpose:** Agentic Visual Architecture Standard (AVAS) - Visual Pattern Recognition.
 *   **Required Content:**
+    *   **Source:** Copy `context/rules/Architecture/DiagramFramework.md`.
     *   Standard: Mermaid.js.
+    *   Protocol: C4 Adaptation.
+    *   Integration: MUST reference `ProDoc/relations.md` for node/service consistency.
 
 ### **5. `.agent/rules/ProDoc/relations.md`**
 *   **Purpose:** Dependency Map.

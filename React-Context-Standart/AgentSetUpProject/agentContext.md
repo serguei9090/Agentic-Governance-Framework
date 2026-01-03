@@ -69,10 +69,13 @@ AGENTS.MD
     *   **Source:** Copy `context/rules/UI_Framework/AtomicDesignFramework.md`.
     *   **Motion:** Copy `context/rules/UI_Framework/MotionSystem.md` to `.agent/rules/UI_Framework/MotionSystem.md`.
 
-### **3. `.agent/rules/Architecture/DiagramStandards.md`**
-*   **Purpose:** Instructions for generating diagrams.
+### **3. `.agent/rules/Architecture/DiagramFramework.md`**
+*   **Purpose:** Agentic Visual Architecture Standard (AVAS) - Visual Pattern Recognition.
 *   **Required Content:**
+    *   **Source:** Copy `context/rules/Architecture/DiagramFramework.md`.
     *   Standard: Mermaid.js.
+    *   Protocol: C4 Adaptation.
+    *   Integration: MUST reference `ProDoc/relations.md` for node/service consistency.
 
 ### **4. `.agent/rules/ProDoc/relations.md`**
 *   **Purpose:** Dependency Map.
