@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "files": [],
+        "references": [
+            {
+                "path": "./apps/web"
+            }
+        ]
+    }
+}
