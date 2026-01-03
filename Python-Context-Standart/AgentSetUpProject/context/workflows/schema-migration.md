@@ -1,42 +1,24 @@
 ---
-name: schema-migration
-description: Safely Migrate Database Schema. Use when `schema.prisma` changes.
+description: Manage Database Schema Migrations in Python
 ---
 
-# Schema Migration Protocol
+# Agentic Workflow: Schema Migration (Python)
 
-## Overview
-**High Risk Operation.** Changes the structural integrity of the Database.
+1.  **Detect Changes:**
+    *   **Reflex/SQLAlchemy:** Modify `rx.Model` classes.
+    *   **Django:** Modify `models.py`.
 
-## Workflow
+2.  **Generate Migration:**
+    *   **Alembic (Reflex):** `alembic revision --autogenerate -m "describe change"`
+    *   **Django:** `python manage.py makemigrations`
 
-### 1) Pre-Flight Check
-- Check `DATABASE_URL` (Ensure it is NOT Production).
-- Run `prisma validate`.
+3.  **Review SQL:**
+    *   Inspect the generated script in `alembic/versions/` or `migrations/`.
+    *   *Critical:* Ensure no destructive actions (DROP TABLE) unless intended.
 
-### 2) Backup
-- Instruct user/script to snapshot the DB.
+4.  **Apply Migration (Dev):**
+    *   **Alembic:** `alembic upgrade head`
+    *   **Django:** `python manage.py migrate`
 
-### 3) Migration
-- Run `npx prisma migrate dev --name <migration_name>`.
-- Capture output.
-
-### 4) Regeneration
-- Run `npx prisma generate` (Update Client).
-- Run `npm run type-check` (Ensure API matches new DB).
-
-## Report Template (`reports/migration_status.md`)
-
-```md
-# Migration Status
-
-**Migration Name:** add_user_table
-**Status:** Success / Fail
-
-## Changes
-- Created Table: `User`
-- Added Column: `email` to `Profile`
-
-## Impact
-- Client SDK Regenerated: Yes
-```
+5.  **Verify:**
+    *   Run integration tests that touch the DB.

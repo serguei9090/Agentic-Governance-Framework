@@ -21,11 +21,11 @@ This workflow bypasses standard feature development cycles to ship a critical fi
 - **Scope:** Do NOT include refactors or other features.
 
 ### 3) Verification
-- Run `npm test` (Focus on affected component).
-- Run `npm run build` (Ensure it compiles).
+- Run `pytest` (Focus on affected component).
+- Run `rx build` (Ensure it compiles).
 
 ### 4) Deployment
-- Bump Version: `npm version patch`
+- Bump Version: `poetry version patch`
 - Commit: `fix(hotfix): <description>`
 - Push: `git push origin hotfix/...`
 - **Merge Strategy:**

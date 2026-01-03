@@ -1,39 +1,21 @@
 ---
-name: security-audit
-description: Run security scans (npm audit) and generate a risk report. Use when asked to check security or vulnerabilities.
+description: Perform a Security Audit using Python tools
 ---
 
-# Security Audit Protocol
+# Agentic Workflow: Security Audit (Python)
 
-## Overview
-Identify and classify vulnerabilities in dependencies and code.
+1.  **Static Analysis (Bandit):**
+    *   Command: `bandit -r . -f json -o reports/security_bandit.json`
+    *   *Check:* Look for hardcoded passwords, SQL injection risks, and insecure imports.
+    *   *Action:* If High Severity issues found, **HALT**.
 
-## Workflow
+2.  **Dependency Check (Safety):**
+    *   Command: `safety check --full-report > reports/security_deps.txt`
+    *   *Check:* Matches dependencies against known CVE databases.
 
-### 1) Dependency Scan
-- Run `npm audit --json`.
-- Parse the output.
-- **Critical/High** vulnerabilities: **FAIL** the workflow.
-- **Moderate/Low**: Warn only.
+3.  **Reflex Specifics:**
+    *   Grepping for exposed secrets in `rx.State` (ensure no sensitive data is passed to client unless intended).
 
-### 2) Static Analysis (SAST)
-- If `trivy` or `snyk` is installed, run them.
-- If not, rely on `npm audit`.
-
-## Report Template (`reports/security_risk_assessment.md`)
-
-```md
-# Security Risk Assessment
-
-**Date:** YYYY-MM-DD
-**Overall Risk:** LOW / HIGH
-
-## Vulnerabilities Found
-| Package | Severity | Fix Available |
-| :--- | :--- | :--- |
-| axios | High | Yes (v1.6.0) |
-
-## Action Plan
-- [ ] Run `npm audit fix`
-- [ ] Manual upgrade required for: [Package Name]
-```
+4.  **Report Generation:**
+    *   Combine Bandit and Safety outputs into `reports/security_audit.md`.
+    *   Prioritize remediation steps.

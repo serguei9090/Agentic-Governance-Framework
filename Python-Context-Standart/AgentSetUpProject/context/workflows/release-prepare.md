@@ -1,49 +1,25 @@
 ---
-name: release-prepare
-description: Preparing a new release (Build, Version, Changelog, Tag). Use when the user asks to "Release" or "Tag" a version.
+description: Prepare a Semantic Versioning release for Python
 ---
 
-# Release Preparation Protocol
+# Agentic Workflow: Release Preparation (Python)
 
-## Overview
-Safely prepare the repo for deployment by validating the build, bumping the version, and generating artifacts.
+1.  **Determine Version:**
+    *   Analyze commits (Conventional Commits) to decide Major, Minor, or Patch.
+    *   *Example:* `feat:` triggers Minor. `fix:` triggers Patch.
 
-## Workflow
+2.  **Bump Version:**
+    *   **Poetry:** `poetry version [major|minor|patch]`
+    *   **Setuptools:** Edit `setup.py` or `pyproject.toml`.
 
-### 1) Validation
-- Run `npm run type-check` (Must be clean).
-- Run `npm run build` (Must succeed).
-- Run `npm test` (Must pass).
+3.  **Generate Changelog:**
+    *   `cz changelog` (using Commitizen).
+    *   Prepend to `CHANGELOG.md`.
 
-### 2) Versioning
-- **IF** this is a patch (bugfix): `npm version patch --no-git-tag-version`.
-- **IF** this is a feature: `npm version minor --no-git-tag-version`.
-- **IF** breaking change: **STOP**. Ask user for explicit confirmation before `npm version major`.
+4.  **Create Release Artifact:**
+    *   `poetry build` or `python -m build`.
+    *   Verify `dist/` contains `.tar.gz` and `.whl`.
 
-### 3) Documentation
-- Append entry to `CHANGELOG.md`.
-- Format: `## [Version] - YYYY-MM-DD`.
-- List: Added, Changed, Fixed.
-
-### 4) Tagging
-- Commit: `chore(release): vX.Y.Z`
-- Create Git Tag: `vX.Y.Z`
-
-## Report Template (`reports/release_log.md`)
-
-```md
-# Release Log: vX.Y.Z
-
-**Date:** YYYY-MM-DD
-**Status:** ✅ Ready for Push
-
-## Validation
-- Build: Success
-- Tests: Passed (X/X)
-
-## Changelog Entry
-### Added
-- Feature A
-### Fixed
-- Bug B
-```
+5.  **Commit & Tag:**
+    *   `git commit -am "chore(release): bump version to X.Y.Z"`
+    *   `git tag vX.Y.Z`

@@ -1,33 +1,29 @@
 ---
-name: onboarding-setup
-description: Standardized project initialization for new Developers or Agents.
+description: Onboard a new developer to the Python environment
 ---
 
-# Onboarding Protocol
+# Agentic Workflow: Onboarding Setup (Python)
 
-## Overview
-Get from "git clone" to "running app" in under 5 minutes.
+1.  **Prerequisites Check:**
+    *   Ensure Python 3.11+ is installed (`python --version`).
+    *   Ensure Git is installed.
 
-## Workflow
+2.  **Environment Setup:**
+    *   **Option A (Poetry):**
+        *   `poetry install`
+        *   `poetry shell`
+    *   **Option B (Venv):**
+        *   `python -m venv .venv`
+        *   `source .venv/bin/activate` (Linux) / `.venv\Scripts\activate` (Windows)
+        *   `pip install -r requirements.txt`
 
-### 1) Dependencies
-- Run `npm ci` (Clean Install from lockfile).
-- **If failure:** Run `npm install` and update lockfile.
+3.  **Hooks Initialization:**
+    *   `pre-commit install`
+    *   Run `pre-commit run --all-files` to verify baseline.
 
-### 2) Environment
-- Check if `.env` exists.
-- If not: `cp .env.example .env`.
-- **Action:** Ask user for any secret keys if strictly required.
+4.  **Verify Build:**
+    *   Run `pytest` to ensure logic is sound.
+    *   Run `rx run` to verify UI start.
 
-### 3) Infrastructure (Optional)
-- If `docker-compose.yml` exists: `docker-compose up -d`.
-- If `schema.prisma` exists: `npx prisma generate`.
-
-### 4) Verification
-- Run `npm test` (Sanity Check).
-- Run `npm run dev` (Start Server).
-
-## Success Criteria
-- [ ] Dependencies installed.
-- [ ] Server starts on `localhost:3000`.
-- [ ] Tests pass.
+5.  **Documentation:**
+    *   Open `README.md` and `AgentSetUpProject/agentContext.md` for review.

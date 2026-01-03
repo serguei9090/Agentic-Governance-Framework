@@ -21,8 +21,8 @@ description: Fast Reversal of bad code. Use when a recent deployment caused an o
 - **Conflict Resolution:** If conflicts occur, abort and assess if Hotfix is safer.
 
 ### 3) Verification
-- Run `npm run build`.
-- Run `npm test`.
+- Run `rx build`.
+- Run `pytest`.
 - **Manual Check:** ensure the specific bug is gone.
 
 ### 4) Deployment

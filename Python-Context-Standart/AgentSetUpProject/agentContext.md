@@ -62,53 +62,59 @@ AGENTS.MD
     *   **Tooling Authority:** The final resolved stack MUST be documented in `.agent/ProDoc/tech-stack.md`.
     *   Directives: Always check `.agent/rules/` before writing code.
 
-### **2. `.agent/rules/UI_Framework/ReflexDesignSystem.md`**
-*   **Purpose:** Enforce Reflex Component Patterns.
+### **2. `.agent/rules/UI_Framework/AtomicDesignFramework.md`**
+*   **Purpose:** Enforce Python Atomic Design patterns (Framework Agnostic).
 *   **Required Content:**
-    *   **Core:** Use `reflex.components` mapped to Atomic Design principles (Atoms = Basic Primitives, Molecules = Composed Components).
-    *   **Styling:** Use standard Reflex props (never raw CSS unless authorized).
-    *   **Responsiveness:** Mobile-first approach using Reflex responsive props.
+    *   **Core:** Map UI primitives to Atoms, functional groups to Molecules.
+    *   **Styling:** Use centralized config/theme dictionaries rather than hardcoded styles.
+    *   **Responsiveness:** Mobile-first approach using framework-specific props.
 
-### **3. `.agent/rules/Architecture/DiagramStandards.md`**
+### **3. `.agent/rules/UI_Framework/MotionSystem.md`**
+*   **Purpose:** Standardize Animation Tokens.
+*   **Required Content:**
+    *   **Tokens:** Define `transition_instant`, `transition_fast`, `transition_deliberate`.
+    *   **Reflex:** Use `rx.cond` or `style` props for transitions.
+
+### **4. `.agent/rules/Architecture/DiagramStandards.md`**
 *   **Purpose:** Instructions for generating diagrams.
 *   **Required Content:**
     *   Standard: Mermaid.js.
 
-### **4. `.agent/rules/ProDoc/relations.md`**
+### **5. `.agent/rules/ProDoc/relations.md`**
 *   **Purpose:** Dependency Map.
 *   **Required Content:**
     *   Map between "Pages" (Reflex) and "State" (Python Classes).
 
-### **5. `.agent/rules/CodeQualityFramework/CodeQualityFramework.md`**
+### **6. `.agent/rules/CodeQualityFramework/CodeQualityFramework.md`**
 *   **Purpose:** Coding Standards (Python Edition).
 *   **Required Content:**
     *   **Source:** Copy `context/rules/CodeQualityFramework/CodeQualityFramework.md`.
     *   **Key Tools:** Ruff (Linting), MyPy (Strict Typing), Black (Formatting).
 
-### **6. `.agent/rules/TestsFramework/TestingArchitecture.md`**
+### **7. `.agent/rules/TestsFramework/TestingArchitecture.md`**
 *   **Purpose:** QA Mandate.
 *   **Required Content:**
     *   **Source:** Copy `context/rules/TestsFramework/TestingArchitecture.md`.
     *   **Frameworks:** Pytest (Unit/Integration), Playwright (E2E for Reflex).
 
-### **7. `.agent/rules/ErrorFramework/ErrorHandlingDirective.md`**
+### **8. `.agent/rules/ErrorFramework/ErrorHandlingDirective.md`**
 *   **Purpose:** Resilience.
 *   **Required Content:**
     *   **Source:** Copy `context/rules/ErrorFramework/ErrorHandlingDirective.md`.
     *   **Python Specifics:** Use `try/except` blocks with specific exceptions. Log errors using `loguru` or standard `logging`.
 
-### **8. `.agent/rules/SecurityFramework/SecurityFramework.md`**
+### **9. `.agent/rules/SecurityFramework/SecurityFramework.md`**
 *   **Purpose:** Defense.
 *   **Required Content:**
     *   **Source:** Copy `context/rules/SecurityFramework/SecurityFramework.md`.
     *   **Ansible Specifics:** Never commit secrets/keys. Use `ansible-vault` or env vars.
 
-### **9. `.agent/rules/Architecture/DatabaseBestPractices.md`**
+### **10. `.agent/rules/Architecture/DatabaseBestPractices.md`**
 *   **Required Content:**
     *   **Source:** Copy `context/rules/Architecture/DatabaseBestPractices.md`.
     *   **ORM:** SQLAlchemy (via `rx.Model`).
 
-### **10. Enterprise Ready Extensions**
+### **11. Enterprise Ready Extensions**
 
 #### **`.agent/rules/Performance/PerformanceBudget.md`**
 *   **Required Content:**
@@ -127,22 +133,22 @@ AGENTS.MD
 *   **Required Content:**
     *   **Source:** Copy `context/rules/Architecture/ApiStandards.md`.
 
-### **11. `.agent/rules/ProDoc/ProDoc.md`**
+### **12. `.agent/rules/ProDoc/ProDoc.md`**
 *   **Purpose:** Knowledge Engine.
 *   **Required Content:**
     *   **Source:** Copy `context/rules/ProDoc/ProDoc.md` to `.agent/rules/ProDoc/ProDoc.md`.
 
-### **12. `.agent/rules/CICD/CiCdFramework.md`**
+### **13. `.agent/rules/CICD/CiCdFramework.md`**
 *   **Purpose:** DevOps.
 *   **Required Content:**
     *   **Source:** Copy `context/rules/CICD/CiCdFramework.md`.
 
-### **13. `.agent/rules/Data_Governance/PrivacyByDesign.md`**
+### **14. `.agent/rules/Data_Governance/PrivacyByDesign.md`**
 *   **Purpose:** Compliance.
 *   **Required Content:**
     *   **Source:** Copy `context/rules/Data_Governance/PrivacyByDesign.md`.
 
-### **14. Agentic Workflows**
+### **15. Agentic Workflows**
 *   **Goal:** Standardized operational procedures for the Agent.
 *   **Directives:**
     *   **Source:** Copy all files from `context/workflows/*.md` to `.agent/workflows/`.

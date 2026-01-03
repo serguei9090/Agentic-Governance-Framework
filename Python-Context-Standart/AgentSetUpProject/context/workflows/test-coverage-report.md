@@ -1,53 +1,21 @@
 ---
-name: test-coverage-report
-description: Run unit tests and coverage for this repository (npm test, npm run test:coverage) and write a summary report to reports/code_test_report.md. Use when the user asks to execute tests/coverage and produce or refresh the test report.
+description: Generate a Test Coverage Report using Pytest
 ---
 
-# Test Coverage Report
+# Agentic Workflow: Test Coverage Report (Python)
 
-## Overview
+1.  **Execute Tests:**
+    *   Command: `pytest --cov=. --cov-report=xml:reports/coverage.xml --cov-report=html:reports/coverage_html`
+    *   *Constraint:* Must run in a fresh environment (or ensure dependencies are up to date).
 
-Run the repo unit tests and coverage, then capture the results in `reports/code_test_report.md`.
+2.  **Analyze Thresholds:**
+    *   Read `reports/coverage.xml`.
+    *   Calculate Total Coverage %.
+    *   *Rule:* If Coverage < 80%, **FAIL** workflow (unless exemption granted).
 
-## Workflow
+3.  **Identify Gaps:**
+    *   Parse XML to find files with < 50% coverage.
+    *   List these files in `reports/coverage_gaps.md`.
 
-### 1) Confirm execution intent
-- If the user explicitly says not to run tests now, do not execute commands; explain the intended steps only.
-- Otherwise, proceed with execution.
-
-### 2) Run unit tests
-- From repo root, run `npm test`.
-- Capture pass/fail summary and any notable warnings.
-
-### 3) Run coverage
-- From repo root, run `npm run test:coverage`.
-- **Optimization:** Ensure the `text-summary` reporter is used (if supported) to get a concise console output, or parse the `reports/coverage/index.html` if available.
-- Capture coverage summaries for each workspace/package and any failures.
-- Code Coverage acceptance criteria is > 80%
-
-### 4) Write report
-- Write a report to `reports/code_test_report.md` in the repo root.
-- Keep the report concise, ASCII-only, and include:
-  - Commands run
-  - Unit test results by package/workspace
-  - Coverage summary by package/workspace
-  - Notable warnings or failures
-
-Use this template:
-
-```md
-# Code Test Report
-
-Commands run:
-- `npm test`
-- `npm run test:coverage`
-
-Unit test results:
-- <package/workspace>: <summary>
-
-Coverage results:
-- <package/workspace>: <statements/branches/functions/lines>
-
-Notes:
-- <warnings/failures or "None">
-```
+4.  **Notify User:**
+    *   "Tests Passed: X/Y. Coverage: Z%. View report at reports/coverage_html/index.html."
