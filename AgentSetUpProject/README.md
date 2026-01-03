@@ -1,29 +1,39 @@
-# Agent Project Setup - Usage Guide
+# **Agent Setup Project**
 
-This folder (`AgentSetUpProject`) contains the core directives and context files needed for an AI Agent to scaffold a new software project according to the "Master Software Engineering Protocol".
+**The "Brain" of the Enterprise Architecture.**
+This folder contains the source of truth for all rules, contexts, and protocols that govern the AI Agent.
 
-## Directory Structure
-```
-Root/
-├── startAgentProjectSetUp.md   <-- START HERE (Entry Point)
-├── [YourProjectName].md        <-- Your Project Requirements (e.g., LogVibeAnalyzerProject.md)
-└── AgentSetUpProject/          <-- Core Agent Files
-    ├── README.md               <-- This file
-    ├── agentProject_setup.md   <-- Scaffolding rules (Monorepo, Tech Stack)
-    ├── agentContext.md         <-- Context generation rules (.agent folder)
-    └── Context/                <-- Specialized Directives
-        └── ErrorHandlingDirective.md
-```
+---
 
-## How to Use
+## **The 10 Pillars of Governance**
 
-1.  **Define Your Project**: Create a project requirement file in the root (e.g., `MyNewApp.md` or use `LogVibeAnalyzerProject.md` as a template).
-2.  **Update Entry Point**: Edit `startAgentProjectSetUp.md` in the root logic:
-    *   Update Step 3 to point to your new project file: `Use @[MyNewApp.md]...`
-3.  **Run the Agent**: Point your AI Agent to `startAgentProjectSetUp.md` and ask it to "Execute the setup".
+Your Agent is trained to strictly follow these directives. They are organized into `context/rules/`:
 
-## Modifying the Protocol
+### **1. Core Architecture**
+*   **UI/Design:** `AtomicDesignFramework.md` (Design Tokens, Primitives, Features).
+*   **State Management:** `StateManagement.md` (Server State vs Client State).
+*   **Relations:** `ProDoc.md` (The Living Dependency Graph).
 
-*   **Tech Stack**: Edit `AgentSetUpProject/agentProject_setup.md` to change frameworks (e.g., switch React to Vue, Python to Node).
-*   **Rules & Context**: Edit `AgentSetUpProject/agentContext.md` to change what goes into the `.agent/` folder.
-*   **Error Handling**: Edit `AgentSetUpProject/Context/ErrorHandlingDirective.md` to update the global error handling standards.
+### **2. Operational Excellence**
+*   **Testing:** `TestingArchitecture.md` (BDD/TDD, Vitest, Playwright).
+*   **Security:** `SecurityFramework.md` (Shift-Left DevSecOps).
+*   **Code Quality:** `CodeQualityFramework.md` (Lefthook, SonarQube, Linting).
+*   **Error Handling:** `ErrorHandlingDirective.md` (RFC 7807 Standard).
+
+### **3. Global & Scale**
+*   **Internationalization:** `i18nProtocol.md` (Day-1 Tokenization).
+*   **Performance:** `PerformanceBudget.md` (LCP < 2.5s Gates).
+*   **Orchestration:** `CiCdFramework.md` (Local vs Cloud Master Switch).
+
+---
+
+## **How It Works**
+
+### **The "Injection" Process**
+The file `agentContext.md` acts as the **Installer**.
+1.  It reads all the markdown files in `context/rules/`.
+2.  It instructs the Agent to generate the lightweight `.agent/` folder in the target project.
+3.  The Agent effectively "Installs" its own operating system instructions.
+
+### **ProDoc & Self-Maintenance**
+This framework includes a **"Staleness Protocol"**. If the codebase changes significantly, the Agent is mandated to regenerate its own `relations.md` (Context Map) before writing new code. This solves the "Context Window" limitation.

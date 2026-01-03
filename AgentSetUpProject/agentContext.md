@@ -122,6 +122,20 @@ AGENTS.MD
     *   OpenAPI/Swagger 3.0 Standard.
     *   All backend endpoints must have a corresponding spec definition.
 
+### **11. Knowledge & Knowledge Graph (ProDoc)**
+*   **Goal:** Allow the Agent to understand the system without reading every file.
+*   **Directives:**
+    *   **Source 1:** `context/rules/ProDoc/ProDoc.md`
+    *   **Source 2:** `context/rules/ProDoc/relations.md` (Dependency Graph)
+    *   **Protocol:** "Staleness Check". Before writing complex code, you MUST check if `relations.md` is older than the last major commit. If so, REGENERATE it.
+
+### **12. DevOps Orchestration (CI/CD)**
+*   **Goal:** Deterministic Software Delivery.
+*   **Directives:**
+    *   **Source 1:** `context/rules/CICD/CiCdFramework.md`
+    *   **Source 2:** `context/rules/CICD/CICDTools.md` (The Manifest)
+    *   **Protocol:** "Master Switch". Check `CICDTools.md`. If "Level 0" is selected, do NOT generate any pipeline files. If "Level 1+", enforce the Matrix.
+
 ---
 
 ## **Execution Instructions for Agent**
