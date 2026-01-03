@@ -3,7 +3,7 @@ This is a new project setup.
 
 1. Use @[AgentSetUpProject/agentProject_setup.md] to scaffold the codebase (directories, config, button component).
 2. Use @[AgentSetUpProject/agentContext.md] to generate the .agent/ folder, including all **Rules** and **Workflows**.
-3. Use @[LogVibeAnalyzerProject.md] to generate proper project files.
+3. Use user project requirements @[LogVibeAnalyzerProject.md] to generate proper project files.
 4. **Agent Instruction:** Ensure the rules generated in step 2 strictly adhere to the technical stack defined in step 1.
 
 ## Project Structure Reference

@@ -10,7 +10,7 @@
 | Type | Library | Purpose | Persistence |
 | :--- | :--- | :--- | :--- |
 | **Server State** | `TanStack Query` (React Query) | caching, deduping, background updates. | In-Memory + Cache. |
-| **Global Client State** | `Zustand` | User preferences, complex multi-step forms. | Session/Local Storage. |
+| **Global Client State** | `Zustand` (Default) / `Redux` | User preferences, complex multi-step forms. | Session/Local Storage. |
 | **Local State** | `useState / useReducer` | Input fields, toggles, simple interactions. | Component Lifecycle. |
 | **URL State** | `React Router` | Search params, filters, pagination. | URL Bar. |
 
@@ -21,8 +21,9 @@
 *   **Mutations:** Always invalidate queries after mutation. `onSuccess: () => queryClient.invalidateQueries(key)`
 
 ## **3. Client State Patterns**
-*   **Zustand:** Create small, atomic stores. `useAuthStore`, `useThemeStore`.
-*   **Avoid Redux:** Unless explicitly required for legacy compatibility. It is too boilerplate-heavy for modern agents.
+*   **Default:** Use **Zustand** for lightweight, atomic stores (`useAuthStore`).
+*   **Enterprise:** Use **Redux Toolkit** IF the user explicitly requests it or for legacy codebases. It provides strict unidirectional flow but adds boilerplate.
+*   **Pattern:** Store logic (actions) must be testable independent of React.
 
 ## **4. URL State (The "Hidden" Store)**
 *   **Pagination:** `?page=2` MUST be in the URL, not in Zustand.
