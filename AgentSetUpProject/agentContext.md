@@ -44,6 +44,7 @@ AGENTS.MD
 *   **Required Content:**
     *   **Source:** You MUST copy the content of `context/rules/UI_Framework/AtomicDesignFramework.md` verbatim into this file.
     *   **Tier 1 (Tokens):** Rules for using `packages/ui/src/tokens`. NEVER hardcode hex values.
+    *   **Tier 1.5 (Motion):** Reference `rules/UI_Framework/MotionSystem.md` for animation standards.
     *   **Tier 2 (Primitives):** Rules for `packages/ui/src/components`. Components must be pure, stateless (mostly), and have **ZERO external margins**.
     *   **Tier 3 (Features):** Rules for Feature/Page assembly. This is where business logic and layout (margins/positioning) live.
 

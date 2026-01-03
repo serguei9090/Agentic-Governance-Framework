@@ -18,7 +18,8 @@ The codebase now operates under strict **Governance Directives** rather than loo
 *   **Status:** ✅ **Implemented**
 *   **Governance:** `context/rules/UI_Framework/AtomicDesignFramework.md`
 *   **Rating:** Excellent
-*   **Analysis:** The strict enforcement of Tier 1 (Tokens) vs Tier 2 (Primitives) vs Tier 3 (Features) prevents style drift and ensures brand consistency. The decoupling of logic from presentation is a hallmark of maintainable React apps.
+*   **Analysis:** The strict enforcement of Tier 1 (Tokens) vs Tier 2 (Primitives) vs Tier 3 (Features) prevents style drift.
+*   **Update:** Now includes **Motion System (`MotionSystem.md`)** as "Tier 1.5", treating Animation as a strict Token (Instant/Fast/Deliberate).
 
 ### **B. Testing Architecture (BDD/TDD)**
 *   **Status:** ✅ **Implemented**

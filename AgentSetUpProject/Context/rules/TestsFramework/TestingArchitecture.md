@@ -58,7 +58,12 @@ export default defineConfig({
     environment: 'jsdom',  
     globals: true,  
     setupFiles: './tests/setup.ts',  
-    include: \['\*\*/\*.{test,spec,steps}.{js,jsx,ts,tsx}'\], // Include .steps files  
+    include: \['\*\*/\*.{test,spec,steps}.{js,jsx,ts,tsx}'\], // Include .steps files
+    reporters: ['default', 'junit'],
+    outputFile: './reports/junit.xml',
+    coverage: {
+      reportsDirectory: './reports/coverage',
+    },
   },  
 });
 

@@ -47,6 +47,10 @@ pre-commit:
       glob: "\*.{js,ts,jsx,tsx}"  
       run: npm run test \-- \--findRelatedTests {staged\_files}
 
+    \# 4\. PRE-PUSH REPORT (Geneate artifacts)
+    report:
+      run: npm run lint:report && npm run test:report
+
 commit-msg:  
   commands:  
     \# 4\. HISTORY STANDARD (Fail on bad messages)  
@@ -148,7 +152,10 @@ sonar.exclusions=\*\*/\*.test.js,\*\*/\*.spec.js,\*\*/node\_modules/\*\*,\*\*/di
 \# Test Code  
 sonar.tests=src  
 sonar.test.inclusions=\*\*/\*.test.js,\*\*/\*.spec.js  
-sonar.javascript.lcov.reportPaths=coverage/lcov.info
+sonar.tests=src  
+sonar.test.inclusions=\*\*/\*.test.js,\*\*/\*.spec.js  
+sonar.javascript.lcov.reportPaths=reports/coverage/lcov.info
+sonar.eslint.reportPaths=reports/lint.json
 
 ## **4\. PROTOCOL C: METRICS & THRESHOLDS**
 
@@ -177,4 +184,7 @@ npx lefthook install
 docker-compose up \-d
 
 \# 4\. Verify  
-npm run lint  
+\# 4\. Verify  
+npm run lint
+# Or generate report: 
+# npx eslint -f json -o ./reports/lint.json .  
