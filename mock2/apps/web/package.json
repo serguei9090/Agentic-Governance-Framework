@@ -1,0 +1,12 @@
+{
+    "name": "web",
+    "version": "0.0.0",
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0",
+        "@ui/tokens": "*"
+    },
+    "devDependencies": {
+        "vite": "^4.0.0"
+    }
+}
