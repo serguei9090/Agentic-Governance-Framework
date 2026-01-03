@@ -59,7 +59,8 @@ export default defineConfig({
     globals: true,  
     setupFiles: './tests/setup.ts',  
     include: \['\*\*/\*.{test,spec,steps}.{js,jsx,ts,tsx}'\], // Include .steps files
-    reporters: ['default', 'junit'],
+    include: \['\*\*/\*.{test,spec,steps}.{js,jsx,ts,tsx}'\], // Include .steps files
+    reporters: ['default', 'junit', 'html'],
     outputFile: './reports/junit.xml',
     coverage: {
       reportsDirectory: './reports/coverage',
