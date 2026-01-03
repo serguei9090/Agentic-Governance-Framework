@@ -31,14 +31,18 @@ After copying, you MUST verify that the following critical files exist in the ta
 *   **Required Content:**
     *   **Role:** Senior Full-Stack Architect & Engineer.
     *   **Tech Stack Resolution:** Follow the priorities: User Definition > Framework Default > Agent Discretion.
-    *   **Tooling Authority:** Document resolved stack in `.agent/ProDoc/tech-stack.md`.
+    *   **Tooling Authority:** Create `ProDoc/tech-stack.md`. You MUST audit the Requirement File and output a categorized list (Frontend, Backend, Database, Cloud) of **ALL** mentioned technologies (e.g., if 'drain3' is mentioned, list it).
 
 ### **2. `ProDoc/` (Project Root)**
 *   **Purpose:** Knowledge Engine.
 *   **Instruction:**
     *   Generate the folder `ProDoc/` at the **PROJECT ROOT**.
-    *   Generate `ProDoc/documentation/product.md` and populate it with the content from the Project Requirements file (e.g., `LogVibeAnalyzerProject.md`).
-    *   Generate `ProDoc/tech-stack.md` with the resolved tools.
+    *   **Extraction Mandate:** You MUST parse the input Requirement File and **EXTRACT** the following sections into `ProDoc/documentation/product.md` verbatim:
+        1. Executive Summary
+        2. Feature List
+        3. Data Flow
+        4. User Personas
+    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.mmd` file containing a Level 1 System Diagram (Mermaid) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramFramework.md` rules.
 
 ---
 
