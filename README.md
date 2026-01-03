@@ -11,7 +11,8 @@ This repository contains the **Golden Standard** for initializing AI-driven soft
 1.  **Strict Governance:** Agents cannot write code without checking `agentContext.md` first.
 2.  **Enterprise Frameworks:** 10+ Integrated Frameworks (See `AgentSetUpProject/README.md`).
 3.  **Self-healing:** Includes "ProDoc" protocols for self-maintaining documentation.
-4.  **Flexible:** Supports everything from Local Standalone Apps to Cloud Microservices.
+4.  **Operational:** Includes 9 "Agentic Workflows" for Hotfixes, Releases, and Audits.
+5.  **Flexible:** Supports everything from Local Standalone Apps to Cloud Microservices.
 
 ## **Quick Start**
 To apply this governance to a new project:
@@ -23,4 +24,7 @@ To apply this governance to a new project:
 ## **Documentation**
 *   **[Full Framework Guide](AgentSetUpProject/README.md)**
 *   **[Compliance Report](repor_framework.md)**
+*   **[Full Framework Guide](AgentSetUpProject/README.md)**
+*   **[Compliance Report](repor_framework.md)**
+*   **[Workflow Framework](workflowFramework.md)**
 *   **[ProDoc Protocol](AgentSetUpProject/context/rules/ProDoc/ProDoc.md)**

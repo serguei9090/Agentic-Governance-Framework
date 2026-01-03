@@ -27,13 +27,41 @@ Your Agent is trained to strictly follow these directives. They are organized in
 
 ---
 
+## **4. Agentic Workflows**
+
+This system includes a suite of **9 Operational Workflows** (Release, Security, Hotfix, etc.) stored in `context/workflows/`. These are automatically copied to `.agent/workflows/` during project setup.
+
+### **How to Use Workflows (2 Methods)**
+
+You have full control over how your team (Humans and Agents) triggers these workflows.
+
+#### **Method A: Implicit Hooks (Automated)**
+Use `lefthook` to bind workflows to Git Events.
+*   *Example:* `pre-push` runs `npm run test` (which triggers `test-coverage-report.md`).
+
+#### **Method B: Explicit Rule Reference (On-Demand)**
+If you prefer explicit control, you can update any Rule file (e.g., `test.md`) to reference a specific workflow. This tells the Agent **exactly** which procedure to follow.
+
+**Example: Adding to `.agent/rules/test.md`:**
+```markdown
+## Release Validation Procedure
+When the user asks to "Validate Release", you **MUST** execute the exact steps defined in:
+`[Release Protocol](file:///.agent/workflows/release-prepare.md)`
+
+DO NOT hallucinate new steps. Follow the workflow file line-by-line.
+```
+
+By referencing the file path `.../.agent/workflows/X.md`, you essentially "Import" that capability into the Rule.
+
+---
+
 ## **How It Works**
 
 ### **The "Injection" Process**
 The file `agentContext.md` acts as the **Installer**.
 1.  It reads all the markdown files in `context/rules/`.
-2.  It instructs the Agent to generate the lightweight `.agent/` folder in the target project.
-3.  The Agent effectively "Installs" its own operating system instructions.
+2.  It copies all workflows from `context/workflows/`.
+3.  The Agent effectively "Installs" its own operating system instructions into `.agent/`.
 
 ### **ProDoc & Self-Maintenance**
 This framework includes a **"Staleness Protocol"**. If the codebase changes significantly, the Agent is mandated to regenerate its own `relations.md` (Context Map) before writing new code. This solves the "Context Window" limitation.
