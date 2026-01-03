@@ -13,7 +13,8 @@ The Agent MUST maintain the following structure in the project root:
   ├── /documentation
   │    └── use_cases.md      (Business Logic & Intent)
   └── /relations
-       └── relations.md      (The Dependency Graph)
+       ├── relations.md      (The Dependency Graph)
+       └── database_schema.md (Live DB Structure - Optional)
 ```
 
 ## **2. The "Staleness Protocol" (CRITICAL)**
@@ -42,6 +43,13 @@ This is a text-based Graph Database.
 ### **B. Visuals (`diagrams.md`)**
 *   **Tool:** Mermaid.js ONLY.
 *   **Requirement:** Every major "Service" must have a corresponding `sequenceDiagram` showing its data flow.
+
+### **C. Database Schema (`database_schema.md`)**
+*   **Condition:** Only if a Database exists.
+*   **Content:**
+    *   **ER Diagram:** Mermaid `erDiagram`.
+    *   **Spec:** Table definitions, Column types, Indexes (copied from `schema.prisma` or SQL).
+    *   **Purpose:** Allow Agent to write SQL/Queries without guessing table names.
 
 ### **C. Intent (`use_cases.md`)**
 *   **Format:** User Stories.

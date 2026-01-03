@@ -15,19 +15,35 @@ AGENTS.MD
 .agent/
 ├── workflows/
 └── rules/
-    ├── code_styleguides/
-    ├── atomic_design_rules.md
-    ├── atomic_design_rules.md
-    ├── diagramuml.md
-    ├── relations.md
-    ├── standarts.md
-    ├── test.md
-    ├── errormanagement.md
-    ├── security.md
-    ├── database.md
-    ├── database__schema.md
-    ├── performance.md
-    └── api_documentation.md
+    ├── UI_Framework/
+    │   ├── AtomicDesignFramework.md
+    │   └── MotionSystem.md
+    ├── TestsFramework/
+    │   └── TestingArchitecture.md
+    ├── CodeQualityFramework/
+    │   └── CodeQualityFramework.md
+    ├── ErrorFramework/
+    │   └── ErrorHandlingDirective.md
+    ├── SecurityFramework/
+    │   └── SecurityFramework.md
+    ├── Performance/
+    │   └── PerformanceBudget.md
+    ├── StateManagement/
+    │   └── StateManagement.md
+    ├── Internationalization/
+    │   └── i18nProtocol.md
+    ├── Data_Governance/
+    │   └── PrivacyByDesign.md
+    ├── CICD/
+    │   ├── CiCdFramework.md
+    │   └── CICDTools.md
+    ├── ProDoc/
+    │   ├── ProDoc.md
+    │   └── relations.md
+    └── Architecture/
+        ├── DiagramStandards.md
+        ├── DatabaseConfig.md
+        └── ApiStandards.md
 ```
 
 ---
@@ -41,105 +57,84 @@ AGENTS.MD
     *   Mission: Maintain strict adherence to Atomic Design, TDD, and Security protocols.
     *   Directives: Always check `.agent/rules/` before writing code.
 
-### **2. `.agent/rules/atomic_design_rules.md` (Design System)**
-*   **Purpose:** Enforce the 3-Tier Atomic Architecture defined in `agentproject_setup.md`.
+### **2. `.agent/rules/UI_Framework/AtomicDesignFramework.md`**
+*   **Purpose:** Enforce the 3-Tier Atomic Architecture.
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `context/rules/UI_Framework/AtomicDesignFramework.md` verbatim into this file.
-    *   **Tier 1 (Tokens):** Rules for using `packages/ui/src/tokens`. NEVER hardcode hex values.
-    *   **Tier 1.5 (Motion):** Reference `rules/UI_Framework/MotionSystem.md` for animation standards.
-    *   **Tier 2 (Primitives):** Rules for `packages/ui/src/components`. Components must be pure, stateless (mostly), and have **ZERO external margins**.
-    *   **Tier 3 (Features):** Rules for Feature/Page assembly. This is where business logic and layout (margins/positioning) live.
+    *   **Source:** Copy `context/rules/UI_Framework/AtomicDesignFramework.md`.
+    *   **Motion:** Copy `context/rules/UI_Framework/MotionSystem.md` to `.agent/rules/UI_Framework/MotionSystem.md`.
 
-### **3. `.agent/rules/diagramuml.md` (Visual Architecture)**
+### **3. `.agent/rules/Architecture/DiagramStandards.md`**
 *   **Purpose:** Instructions for generating diagrams.
 *   **Required Content:**
     *   Standard: Mermaid.js.
-    *   Types: Sequence Diagrams for API flows, Class Diagrams for Core Logic, Entity-Relationship (ER) for Database.
 
-### **4. `.agent/rules/relations.md` (Dependency Map)**
-*   **Purpose:** Documentation of high-level relationships.
+### **4. `.agent/rules/ProDoc/relations.md`**
+*   **Purpose:** Dependency Map.
 *   **Required Content:**
     *   Map between "Features" (UI) and "Services" (Core).
-    *   Define boundaries: UI never calls DB directly; UI -> Core Service -> API/DB.
 
-### **5. `.agent/rules/standarts.md` (Coding Standards)**
-*   **Purpose:** granular code style and hygiene.
+### **5. `.agent/rules/CodeQualityFramework/CodeQualityFramework.md`**
+*   **Purpose:** Coding Standards.
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `context/rules/CodeQualityFramework/CodeQualityFramework.md` verbatim into this file.
-    *   **Toolchain:** Enforce usage of **ESLint + SonarJS** (Logic), **Prettier** (Style), and **Lefthook** (Git Hooks).
-    *   **Naming:** PascalCase for Components, camelCase for functions/vars.
-    *   **Comments:** JSDoc for complex logic; clean code preferred over excessive comments.
-    *   **File Structure:** Co-location of files (Component + Test + Story).
+    *   **Source:** Copy `context/rules/CodeQualityFramework/CodeQualityFramework.md`.
 
-### **6. `.agent/rules/test.md` (Quality Assurance)**
-*   **Purpose:** The Testing & Linting Mandate.
+### **6. `.agent/rules/TestsFramework/TestingArchitecture.md`**
+*   **Purpose:** QA Mandate.
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `context/rules/TestsFramework/TestingArchitecture.md` verbatim into this file.
-    *   **Modes:** Reference `context/rules/TestsFramework/MasterAgentOpsMode.md` for identifying "New Feature" vs "Retrofit" modes.
-    *   **Unit Tests:** Every component/function MUST have a `.test.ts/tsx` file (Vitest).
-    *   **Linting:** Run `npm run lint` and `npm run type-check` before any commit.
-    *   **Reports:** All test reports must be generated in `./reports/` (e.g., `./reports/coverage/`, `./reports/junit.xml`).
-    *   **Coverage:** Minimum 80% mandatory.
+    *   **Source:** Copy `context/rules/TestsFramework/TestingArchitecture.md`.
 
-### **7. `.agent/rules/ErrorHandlingDirective.md` (Resilience)**
-*   **Purpose:** Handling failures gracefully.
+### **7. `.agent/rules/ErrorFramework/ErrorHandlingDirective.md`**
+*   **Purpose:** Resilience.
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `context/rules/ErrorFramework/ErrorHandlingDirective.md` verbatim into this file.
-    *   **Directives:** Ensure strict adherence to RFC 7807, 4xx/5xx separation, and security sanitization as defined in the source directive.
+    *   **Source:** Copy `context/rules/ErrorFramework/ErrorHandlingDirective.md`.
 
-### **8. `.agent/rules/security.md` (Defense)**
-*   **Purpose:** OWASP Top 10 mitigation.
+### **8. `.agent/rules/SecurityFramework/SecurityFramework.md`**
+*   **Purpose:** Defense.
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `context/rules/SecurityFramework/SecurityFramework.md` verbatim into this file.
-    *   **Input:** Validate EVERYTHING (Zod/Yup schemas).
-    *   **Output:** Escape all HTML (prevent XSS).
-    *   **Auth:** Directives on avoiding client-side secrets.
+    *   **Source:** Copy `context/rules/SecurityFramework/SecurityFramework.md`.
 
-### **9. `.agent/rules/database.md` & `database__schema.md` (Data Layer)**
-*   *Condition: Only generate if the project uses a Database.*
-*   **`database.md`:** Connection pooling, ORM best practices (Prisma/TypeORM).
-*   **`database__schema.md`:** A live markdown representation of the DB schema (Tables, Columns, Types, Relations).
+### **9. `.agent/rules/Architecture/DatabaseBestPractices.md`**
+*   *Condition: Only if DB usage.*
+*   **Required Content:**
+    *   **Source:** Copy `context/rules/Architecture/DatabaseBestPractices.md`.
+    *   **Schema:** The Agent MUST generate `ProDoc/relations/database_schema.md` (Live representation) if `schema.prisma` exists.
 
 ### **10. Enterprise Ready Extensions**
 
-#### **`.agent/rules/performance.md`**
+#### **`.agent/rules/Performance/PerformanceBudget.md`**
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `context/rules/Performance/PerformanceBudget.md` verbatim into this file.
-    *   **Directives:** Block any PR that exceeds 2.5s LCP or 150KB Initial Bundle.
-    *   **Tooling:** Enforce via Lighthouse CI.
+    *   **Source:** Copy `context/rules/Performance/PerformanceBudget.md`.
 
-#### **`.agent/rules/state_management.md`**
-*   **Purpose:** Architecture for Data vs UI State.
+#### **`.agent/rules/StateManagement/StateManagement.md`**
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `context/rules/StateManagement/StateManagement.md` verbatim into this file.
-    *   **Constraint:** Strictly separate Server State (React Query) from Client State (Zustand).
+    *   **Source:** Copy `context/rules/StateManagement/StateManagement.md`.
 
-#### **`.agent/rules/i18n.md`**
-*   **Purpose:** Global Scale Readiness.
+#### **`.agent/rules/Internationalization/i18nProtocol.md`**
 *   **Required Content:**
-    *   **Source:** You MUST copy the content of `context/rules/Internationalization/i18nProtocol.md` verbatim into this file.
-    *   **Constraint:** No hardcoded strings. Use `i18next` keys in nested JSON format.
+    *   **Source:** Copy `context/rules/Internationalization/i18nProtocol.md`.
 
-#### **`.agent/rules/api_documentation.md`**
+#### **`.agent/rules/Architecture/ApiStandards.md`**
 *   **Required Content:**
+    *   **Source:** Copy `context/rules/Architecture/ApiStandards.md`.
     *   OpenAPI/Swagger 3.0 Standard.
     *   All backend endpoints must have a corresponding spec definition.
 
-### **11. Knowledge & Knowledge Graph (ProDoc)**
-*   **Goal:** Allow the Agent to understand the system without reading every file.
-*   **Directives:**
-    *   **Source 1:** `context/rules/ProDoc/ProDoc.md`
-    *   **Source 2:** `context/rules/ProDoc/relations.md` (Dependency Graph)
-    *   **Protocol:** "Staleness Check". Before writing complex code, you MUST check if `relations.md` is older than the last major commit. If so, REGENERATE it.
+### **11. `.agent/rules/ProDoc/ProDoc.md`**
+*   **Purpose:** Knowledge Engine.
+*   **Required Content:**
+    *   **Source:** Copy `context/rules/ProDoc/ProDoc.md`.
 
-### **12. DevOps Orchestration (CI/CD)**
-*   **Goal:** Deterministic Software Delivery.
-*   **Directives:**
-    *   **Source 1:** `context/rules/CICD/CiCdFramework.md`
-    *   **Source 2:** `context/rules/CICD/CICDTools.md` (The Manifest)
-    *   **Protocol:** "Master Switch". Check `CICDTools.md`. If "Level 0" is selected, do NOT generate any pipeline files. If "Level 1+", enforce the Matrix.
+### **12. `.agent/rules/CICD/CiCdFramework.md`**
+*   **Purpose:** DevOps.
+*   **Required Content:**
+    *   **Source:** Copy `context/rules/CICD/CiCdFramework.md` and `CICDTools.md`.
 
-### **13. Agentic Workflows**
+### **13. `.agent/rules/Data_Governance/PrivacyByDesign.md`**
+*   **Purpose:** Compliance.
+*   **Required Content:**
+    *   **Source:** Copy `context/rules/Data_Governance/PrivacyByDesign.md`.
+
+### **14. Agentic Workflows**
 *   **Goal:** Standardized operational procedures for the Agent.
 *   **Directives:**
     *   **Source:** Copy all files from `context/workflows/*.md` to `.agent/workflows/`.

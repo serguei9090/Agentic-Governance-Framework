@@ -24,6 +24,7 @@ Your Agent is trained to strictly follow these directives. They are organized in
 *   **Internationalization:** `i18nProtocol.md` (Day-1 Tokenization).
 *   **Performance:** `PerformanceBudget.md` (LCP < 2.5s Gates).
 *   **Orchestration:** `CiCdFramework.md` (Local vs Cloud Master Switch).
+*   **Compliance:** `PrivacyByDesign.md` (GDPR No-Log Mandate).
 
 ---
 
