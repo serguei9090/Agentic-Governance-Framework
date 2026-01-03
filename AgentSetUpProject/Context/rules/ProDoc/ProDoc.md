@@ -8,6 +8,7 @@ The Agent MUST maintain the following structure in the project root:
 
 ```text
 /ProDoc
+  ├── tech-stack.md          (The Official Toolbelt)
   ├── /diagrams
   │    └── diagrams.md       (Mermaid.js Visuals)
   ├── /documentation
@@ -40,7 +41,18 @@ This is a text-based Graph Database.
     - **Risk Level**: (High | Low)
     ```
 
-### **B. Visuals (`diagrams.md`)**
+### **B. Tech Stack (`tech-stack.md`)**
+*   **Purpose:** The Single Source of Truth for allowed libraries.
+*   **Format:**
+    ```markdown
+    # Technology Stack
+    ## Core
+    - **Language:** TypeScript 5.x (Decision: User Mandate)
+    - **State:** Zustand (Decision: Framework Default)
+    ```
+*   **Rule:** Agents MUST NOT install new packages without adding them here first.
+
+### **C. Visuals (`diagrams.md`)**
 *   **Tool:** Mermaid.js ONLY.
 *   **Requirement:** Every major "Service" must have a corresponding `sequenceDiagram` showing its data flow.
 

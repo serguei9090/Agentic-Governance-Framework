@@ -60,6 +60,7 @@ AGENTS.MD
         1.  **User Definition:** IF the Project Requirements File (referenced in Step 3 of `startAgentProjectSetUp`) specifies a tool, that choice is **LAW**.
         2.  **Framework Default:** IF the user is silent on a topic, you **MUST** use the Framework Default (e.g., "Zustand").
         3.  **Agent Discretion:** Only if neither defined, choose the robust standard.
+    *   **Tooling Authority:** The final resolved stack MUST be documented in `.agent/ProDoc/tech-stack.md`. Once written, this file is the "Allowed Toolbelt".
     *   Directives: Always check `.agent/rules/` before writing code.
 
 ### **2. `.agent/rules/UI_Framework/AtomicDesignFramework.md`**
