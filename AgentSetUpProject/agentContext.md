@@ -129,6 +129,8 @@ AGENTS.MD
 *   **Purpose:** Knowledge Engine.
 *   **Required Content:**
     *   **Source:** Copy `context/rules/ProDoc/ProDoc.md`.
+    *   **Generation Mandate:** You MUST generate `ProDoc/documentation/product.md` and `product-guidelines.md` by extracting information from the **User Project Requirements** (Step 3 input).
+    *   **Standard:** Use these files to drive all future decisions.
 
 ### **12. `.agent/rules/CICD/CiCdFramework.md`**
 *   **Purpose:** DevOps.

@@ -12,6 +12,8 @@ The Agent MUST maintain the following structure in the project root:
   ├── /diagrams
   │    └── diagrams.md       (Mermaid.js Visuals)
   ├── /documentation
+  │    ├── product.md        (Vision & Features)
+  │    ├── product-guidelines.md (Design & Interaction)
   │    └── use_cases.md      (Business Logic & Intent)
   └── /relations
        ├── relations.md      (The Dependency Graph)
@@ -56,14 +58,25 @@ This is a text-based Graph Database.
 *   **Tool:** Mermaid.js ONLY.
 *   **Requirement:** Every major "Service" must have a corresponding `sequenceDiagram` showing its data flow.
 
-### **C. Database Schema (`database_schema.md`)**
+### **D. Database Schema (`database_schema.md`)**
 *   **Condition:** Only if a Database exists.
 *   **Content:**
     *   **ER Diagram:** Mermaid `erDiagram`.
     *   **Spec:** Table definitions, Column types, Indexes (copied from `schema.prisma` or SQL).
     *   **Purpose:** Allow Agent to write SQL/Queries without guessing table names.
 
-### **C. Intent (`use_cases.md`)**
+## **4. The Product Trinity (Documentation)**
+The `/documentation` folder MUST contain these three files, generated from the User's Project Brief.
+
+### **A. `product.md` (The Vision)**
+*   **Content:** Target Audience, Value Props, MVP Feature List.
+*   **Rule:** This is the scope boundary. If a feature isn't here, ask before building.
+
+### **B. `product-guidelines.md` (The Vibe)**
+*   **Content:** Visual Identity (Material/Apple), Motion principles, Accessibility goals.
+*   **References:** Must point to `.agent/rules/` for hard technical details (Colors/Fonts).
+
+### **C. `use_cases.md` (The Intent)**
 *   **Format:** User Stories.
 *   **Example:** "As a Admin, I want to ban users so that the platform remains safe."
 *   **Purpose:** The Agent reads this to understand *why* a function exists, preventing "Logic Drift" during refactoring.
