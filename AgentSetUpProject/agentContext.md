@@ -128,8 +128,9 @@ AGENTS.MD
 ### **11. `.agent/rules/ProDoc/ProDoc.md`**
 *   **Purpose:** Knowledge Engine.
 *   **Required Content:**
-    *   **Source:** Copy `context/rules/ProDoc/ProDoc.md`.
-    *   **Generation Mandate:** You MUST generate `ProDoc/documentation/product.md` and `product-guidelines.md` by extracting information from the **User Project Requirements** (Step 3 input).
+    *   **Source:** Copy `context/rules/ProDoc/ProDoc.md` to `.agent/rules/ProDoc/ProDoc.md`.
+    *   **Generation Mandate:** You MUST generate the folder `ProDoc/` at the **PROJECT ROOT** (NOT inside `.agent`).
+    *   **Artifacts:** Inside `ProjectRoot/ProDoc/`, generate `documentation/product.md` and `tech-stack.md` based on User inputs.
     *   **Standard:** Use these files to drive all future decisions.
 
 ### **12. `.agent/rules/CICD/CiCdFramework.md`**
