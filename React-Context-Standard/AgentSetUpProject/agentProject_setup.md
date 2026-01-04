@@ -149,13 +149,6 @@ Requirements:
 *   **Create File:** `apps/web/src/main.tsx` (React Root).
 *   **Create File:** `apps/web/src/App.tsx` (Hello World component).
 
-### **Directive 8: Scaffold API Service (apps/api)**
-
-Task: Create the Python Backend.
-Requirements:
-*   **Create File:** `apps/api/requirements.txt` (Deps: fastapi, uvicorn, pytest).
-*   **Create File:** `apps/api/main.py` (FastAPI app instance with /health endpoint).
-
 ## **PART 3: The Master Workflow File**
 
 *This file references all rules and defines the execution order. Use this to orchestrate the SDLC.*
@@ -205,3 +198,37 @@ stages:
 2. \[ \] Did you use Design Tokens instead of hardcoded hex values?  
 3. \[ \] Does your component have zero external margins?  
 4. \[ \] Did you run the Docker CI locally before pushing?
+
+## **PART 4: Initialization Protocol**
+
+*Run these commands to bring the "Body" (Project) and "Brain" (Context) to life.*
+
+### **Phase 1: System Prep**
+1.  **Version Control:**
+    *   `git init`
+    *   `touch .gitignore` (Population: `node_modules`, `.env`, `coverage`, `dist`, `__pycache__`, `.DS_Store`).
+2.  **Environment:**
+    *   `touch .env` (Add `VITE_API_URL=http://localhost:8000`).
+
+### **Phase 2: Dependency Injection**
+1.  **Frontend/Root:** `npm install`
+
+### **Phase 3: QA & DX Setup (The Safety Net)**
+1.  **Lefthook (Git Hooks):**
+    *   Install: `npm install -D lefthook`
+    *   Config: Create `lefthook.yml`. Map `pre-commit` to `npx lint-staged`.
+2.  **Lint-Staged (Atomic Speed):**
+    *   Install: `npm install -D lint-staged`
+    *   Config: Create `.lintstagedrc`.
+    *   *Rule:* `"*.{ts,tsx}"`: ["eslint --fix", "prettier --write", "npm test -- --bail --findRelatedTests"]
+        *   *Note on Testing:* The `--findRelatedTests` flag tells Jest to run **only** the unit tests related to the changed files. This is fast and ensures you don't break existing logic you touched. Full coverage checks are reserved for the CI pipeline.
+3.  **Editor Config:**
+    *   Generate `.vscode/settings.json` with `"editor.formatOnSave": true`.
+    *   Generate `.vscode/extensions.json` recommending `dbaeumer.vscode-eslint` and `esbenp.prettier-vscode`.
+
+### **Phase 4: Testing Infrastructure**
+1.  **React Testing Library:**
+    *   Install: `npm install -D @testing-library/react @testing-library/jest-dom jsdom`
+    *   Setup: Create `apps/web/src/setupTests.ts` { import '@testing-library/jest-dom'; }
+2.  **Verification:**
+    *   Create a dummy test `apps/web/src/App.test.tsx` to confirm the runner passes.
