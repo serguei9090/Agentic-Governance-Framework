@@ -30,6 +30,7 @@ After copying, you MUST verify that the following critical files exist in the ta
 *   **Purpose:** Defines the "Identity" of the AI Agent.
 *   **Required Content:**
     *   **Role:** Senior Full-Stack Architect & Engineer.
+    *   **Framework Binding:** You MUST explicitly reference the `.agent/rules` directory as the source of truth for all operational standards (Coding, Security, Testing). The agent acting on this file MUST understand it is an **Orchestrator** of these existing rules, not a creator of new ones.
     *   **Tech Stack Resolution:** Follow the priorities: User Definition > Framework Default > Agent Discretion.
     *   **Tooling Authority:** Create `ProDoc/tech-stack.md`. You MUST audit the Requirement File and output a categorized list (Frontend, Backend, Database, Cloud) of **ALL** mentioned technologies (e.g., if 'drain3' is mentioned, list it).
 
@@ -42,7 +43,8 @@ After copying, you MUST verify that the following critical files exist in the ta
         2. Feature List
         3. Data Flow
         4. User Personas
-    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.mmd` file containing a Level 1 System Diagram (Mermaid) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramFramework.md` rules.
+    *   **Product Guidelines:** Generate `ProDoc/documentation/product-guidelines.md`. Extract any specific business rules, product vision, or non-functional requirements found in the input.
+    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/documentation/system_context.md` file (Markdown) containing a Level 1 System Diagram (Mermaid block) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramFramework.md` rules.
 
 ---
 

@@ -18,23 +18,24 @@
 
 ---
 
-## **Phase 2: Execution (Scaffolding)**
+## **Phase 2: Execution (Context Injection)**
 
 3.  **Execute the Directives:**
-    *   Follow the instructions in `agentContext.md` under **"Execution Instructions for Agent"**.
-    *   Generate the `.agent/` folder structure.
-    *   Create the `AGENTS.MD` persona file.
-    *   Create all Rule files (`.agent/rules/**/*.md`).
+    *   Follow the instructions in `agentContext.md`.
+    *   **CRITICAL:** Use `cp -r` (recursive copy) to transfer ALL **Rules** and **Workflows** (`context/rules` -> `.agent/rules`).
+    *   **Hydrate:** Extract requirements into `ProDoc/documentation/product.md`.
+    *   **Diagram:** Generate `ProDoc/system_context.mmd`.
 
 4.  **Verify Compliance:**
-    *   Ensure `CodeQualityFramework.md` matches the Python/Ruff/MyPy standard.
-    *   Ensure `TestingArchitecture.md` matches the Pytest/Playwright standard.
+    *   **Structure:** Check that `.agent/workflows` exists and is populous.
+    *   **Knowledge:** Check that `ProDoc/documentation/product.md` is NOT empty.
+    *   **Visuals:** Check that `ProDoc/system_context.mmd` exists.
 
 ---
 
 ## **Phase 3: Handover**
 
 5.  **Notify User:**
-    *   "Project Context Initialized."
+    *   "Project Context Initialized & Hydrated."
     *   "Standard: Python (Reflex/Ansible)"
     *   "Ready for development."
