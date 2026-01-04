@@ -149,6 +149,39 @@ Requirements:
 *   **Create File:** `apps/web/src/main.tsx` (React Root).
 *   **Create File:** `apps/web/src/App.tsx` (Hello World component).
 
+### **Directive 9: Generate .eslintrc.cjs (Root Linting)**
+
+Task: Create the Universal Lint Config.
+Requirements:
+*   **Create File:** `.eslintrc.cjs`
+*   **Content:**
+    *   Extend: `eslint:recommended`, `plugin:@typescript-eslint/recommended`, `plugin:react-hooks/recommended`.
+    *   Ignore Patterns: `dist`, `node_modules`, `coverage`.
+
+### **Directive 10: Configure TurboRepo (The Build System)**
+
+Task: Set up the optimized build pipeline.
+Requirements:
+*   **Create File:** `turbo.json`
+*   **Content:**
+    ```json
+    {
+      "$schema": "https://turbo.build/schema.json",
+      "pipeline": {
+        "build": {
+          "dependsOn": ["^build"],
+          "outputs": ["dist/**"]
+        },
+        "lint": {},
+        "test": {},
+        "dev": {
+          "cache": false,
+          "persistent": true
+        }
+      }
+    }
+    ```
+
 ## **PART 3: The Master Workflow File**
 
 *This file references all rules and defines the execution order. Use this to orchestrate the SDLC.*
@@ -220,7 +253,13 @@ stages:
 2.  **Lint-Staged (Atomic Speed):**
     *   Install: `npm install -D lint-staged`
     *   Config: Create `.lintstagedrc`.
-    *   *Rule:* `"*.{ts,tsx}"`: ["eslint --fix", "prettier --write", "npm test -- --bail --findRelatedTests"]
+    *   *Rule:* 
+        ```json
+        {
+          "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write", "npm test -- --bail --findRelatedTests"],
+          "*.{json,md,yml,css,scss}": ["prettier --write"]
+        }
+        ```
         *   *Note on Testing:* The `--findRelatedTests` flag tells Jest to run **only** the unit tests related to the changed files. This is fast and ensures you don't break existing logic you touched. Full coverage checks are reserved for the CI pipeline.
 3.  **Editor Config:**
     *   Generate `.vscode/settings.json` with `"editor.formatOnSave": true`.
@@ -230,5 +269,13 @@ stages:
 1.  **React Testing Library:**
     *   Install: `npm install -D @testing-library/react @testing-library/jest-dom jsdom`
     *   Setup: Create `apps/web/src/setupTests.ts` { import '@testing-library/jest-dom'; }
-2.  **Verification:**
     *   Create a dummy test `apps/web/src/App.test.tsx` to confirm the runner passes.
+
+### **Phase 5: Scripts & Orchestration (Monorepo Powers)**
+1.  **Turbo Injection:**
+    *   Add scripts to root `package.json`:
+        *   `"dev": "turbo run dev"`
+        *   `"build": "turbo run build"`
+        *   `"lint": "turbo run lint"`
+        *   `"test": "turbo run test"`
+        *   `"clean": "rm -rf node_modules **/**/node_modules"`
