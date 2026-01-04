@@ -33,6 +33,7 @@ After copying, you MUST verify that the following critical files exist in the ta
 *   **Required Content:**
     *   **Role:** Senior Python Full-Stack Architect (Reflex Specialist).
     *   **Mission:** Maintain strict adherence to PEP 8, Type Hinting (MyPy), and Reflex patterns.
+    *   **Framework Binding:** You MUST explicitly reference the `.agent/rules` directory as the source of truth for all operational standards (Coding, Security, Testing). The agent acting on this file MUST understand it is an **Orchestrator** of these existing rules, not a creator of new ones.
     *   **Tech Stack Resolution:** Follow the priorities: User Definition > Framework Default > Agent Discretion.
     *   **Tooling Authority:** Create `ProDoc/tech-stack.md`. You MUST audit the Requirement File and output a categorized list (Frontend, Backend, Database, Cloud) of **ALL** mentioned technologies (e.g., if 'Ruff' is mentioned, list it).
 
@@ -45,7 +46,8 @@ After copying, you MUST verify that the following critical files exist in the ta
         2. Feature List
         3. Data Flow
         4. User Personas
-    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.mmd` file containing a Level 1 System Diagram (Mermaid) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramFramework.md` rules.
+    *   **Guidelines:** Generate `ProDoc/documentation/product-guidelines.md`. Extract specific business rules, product vision, or non-functional requirements that should guide decision making.
+    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.md` file containing a Level 1 System Diagram (Mermaid) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramFramework.md` rules.
 
 ### **3. Agentic Workflows**
 *   **Goal:** Standardized operational procedures for the Agent.
