@@ -48,9 +48,17 @@ After copying, you MUST verify that the following critical files exist in the ta
 
 ---
 
+### 3. Context Pruning (Rule Filtering)
+*   **Database Audit:** Inspect the project requirements. If the project does **NOT** require a database:
+    *   **DELETE** `.agent/rules/Database/database.md` (or similar).
+    *   Ensure no database-related workflows remain.
+*   **Tech Stack Alignment:** Remove any other rule files that do not pertain to the selected tech stack (e.g., if Python is not used, remove Python specific rules if they were copied).
+
+---
+
 ## **Execution Instructions for Agent**
 
 1.  Read this file completely.
-2.  If the project does **not** have a database, ensure `database*.md` files state "N/A" or are omitted.
-3.  Generate the full `.agent` folder structure.
+2.  Generate the full `.agent` folder structure (Part 1).
+3.  Perform Customization & Hydration (Part 2), including the creation of `AGENTS.MD`, `ProDoc/`, and Pruning of unused rules.
 4.  Populate each file with professional, comprehensive technical writing suitable for Senior Engineers.
