@@ -8,23 +8,24 @@ This folder contains the source of truth for all rules, contexts, and protocols 
 ## **The 10 Pillars of Governance**
 
 Your Agent is trained to strictly follow these directives. They are organized into `context/rules/`:
+> **Note:** Files in `.agent/rules` are **Standards** (static quality/design requirements) while `.agent/workflows` are **Protocols** (step-by-step procedures).
 
 ### **1. Core Architecture**
-*   **UI/Design:** `AtomicDesignFramework.md` (Design Tokens, Primitives, Features).
-*   **State Management:** `StateManagement.md` (Server State vs Client State).
-*   **Relations:** `ProDoc.md` (The Living Dependency Graph).
+*   **UI/Design:** `AtomicDesignStandard.md` (Design Tokens, Primitives, Features).
+*   **State Management:** `StateManagementStandard.md` (Server State vs Client State).
+*   **Relations:** `ProDocStandard.md` (The Living Dependency Graph).
 
 ### **2. Operational Excellence**
-*   **Testing:** `TestingArchitecture.md` (BDD/TDD, Vitest, Playwright).
-*   **Security:** `SecurityFramework.md` (Shift-Left DevSecOps).
-*   **Code Quality:** `CodeQualityFramework.md` (Lefthook, SonarQube, Linting).
-*   **Error Handling:** `ErrorHandlingDirective.md` (RFC 7807 Standard).
+*   **Testing:** `TestingStandard.md` (BDD/TDD, Vitest, Playwright).
+*   **Security:** `SecurityStandard.md` (Shift-Left DevSecOps).
+*   **Code Quality:** `CodeQualityStandard.md` (Lefthook, SonarQube, Linting).
+*   **Error Handling:** `ErrorStandard.md` (RFC 7807 Standard).
 
 ### **3. Global & Scale**
-*   **Internationalization:** `i18nProtocol.md` (Day-1 Tokenization).
-*   **Performance:** `PerformanceBudget.md` (LCP < 2.5s Gates).
-*   **Orchestration:** `CiCdFramework.md` (Local vs Cloud Master Switch).
-*   **Compliance:** `PrivacyByDesign.md` (GDPR No-Log Mandate).
+*   **Internationalization:** `i18nStandard.md` (Day-1 Tokenization).
+*   **Performance:** `PerformanceStandard.md` (LCP < 2.5s Gates).
+*   **Orchestration:** `CiCdStandard.md` (Local vs Cloud Master Switch).
+*   **Compliance:** `PrivacyByDesignStandard.md` (GDPR No-Log Mandate).
 
 ---
 

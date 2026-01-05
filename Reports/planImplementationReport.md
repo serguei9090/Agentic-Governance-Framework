@@ -44,16 +44,16 @@ To satisfy the need for speed on small tasks and robustness on large ones, we pr
 ## 3. Naming & Archiving Standards
 
 ### Naming Convention
-*   **Format**: `Plan_{CamelCaseDescription}_{Random6Digits}.md`
-*   **Regex**: `^Plan_[a-zA-Z0-9]+_\d{6}\.md$`
-*   **Example**: `Plan_FixNavbarOverflow_882910.md`
+*   **Format**: `Plan_{Description}_{Random6Digits}.md` (CamelCase preferred, underscores allowed)
+*   **Regex**: `^Plan_[a-zA-Z0-9_]+_\d{6}\.md$`
+*   **Example**: `Plan_FixNavbarOverflow_882910.md` or `Plan_Fix_Navbar_882910.md`
 
 ### Archiving Process
 When a plan is marked **DONE**:
 1.  **Target Directory**: `.agent/plans/archive/{YYYY-MM-DD}/`
     *   Folder is created dynamically based on simple current date.
 2.  **Action**: Move the `Plan_*.md` file from `active/` to `archive/{YYYY-MM-DD}/`.
-3.  **Index Update**: A central `plan_history_log.md` is updated with a one-line summary:
+3.  **Index Update**: A central `.agent/plans/plan_history_log.md` is updated with a one-line summary:
     *   `[2025-01-04] Plan_AuthLogic_928371: Implemented Firebase Auth Logic (Success).`
 
 ---
@@ -63,7 +63,7 @@ When a plan is marked **DONE**:
 To integrate this into `AGENTS.MD` and your existing structure:
 
 1.  **New Rule File**: Create `.agent/rules/Workflows/PlanningProtocol.md`.
-2.  **Context Injection**: Update `AGENTS.MD` to include:
+2.  **Context Injection**: Update `agentContext.md` (Master Protocol) which generates `AGENTS.MD` to include:
     > "Before coding, determining complexity: If < 5 lines/1 file -> use `fastPlan.md`. Else -> Create `Plan_[Name]_[ID].md`."
 3.  **Directory Structure**:
     ```text

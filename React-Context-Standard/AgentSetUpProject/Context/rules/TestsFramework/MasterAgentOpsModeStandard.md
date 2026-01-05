@@ -4,7 +4,7 @@ I have two standard operating procedures for testing. I will tell you which **MO
 
 ## **MODE A: NEW FEATURE (Construction)**
 
-**Reference:** Use the strategies in .agent/rules/TestsFramework/TestingArchitecture.md
+**Reference:** Use the strategies in .agent/rules/TestsFramework/TestingStandard.md
 
 1. **Ask for Requirements:** Do not write code until I approve the Gherkin (.feature) file.  
 2. **Red/Green/Refactor:** Write the failing test first, then the code.  
