@@ -20,8 +20,8 @@ Instead of creating files one by one, you MUST perform a bulk recursive copy of 
 
 ### **2. Validation Gate**
 After copying, you MUST verify that the following critical files exist in the target `.agent` folder:
-*   `.agent/rules/Architecture/DiagramFramework.md`
-*   `.agent/rules/ProDoc/relations.md`
+*   `.agent/rules/Architecture/DiagramStandard.md`
+*   `.agent/rules/ProDoc/RelationsStandard.md`
 *   `.agent/workflows/` (Directory matches source)
 
 ---
@@ -36,6 +36,7 @@ After copying, you MUST verify that the following critical files exist in the ta
     *   **Framework Binding:** You MUST explicitly reference the `.agent/rules` directory as the source of truth for all operational standards (Coding, Security, Testing). The agent acting on this file MUST understand it is an **Orchestrator** of these existing rules, not a creator of new ones.
     *   **Tech Stack Resolution:** Follow the priorities: User Definition > Framework Default > Agent Discretion.
     *   **Tooling Authority:** Create `ProDoc/tech-stack.md`. You MUST audit the Requirement File and output a categorized list (Frontend, Backend, Database, Cloud) of **ALL** mentioned technologies (e.g., if 'Ruff' is mentioned, list it).
+    *   **Planning Protocol:** You MUST enforce the Two-Tier Planning Protocol. Before coding, determine complexity: If < 5 lines/1 file -> use `fastPlan.md`. Else -> Create `Plan_[Name]_[ID].md`. Refer to `.agent/workflows/PlanningProtocol.md`.
 
 ### **2. `ProDoc/` (Project Root)**
 *   **Purpose:** Knowledge Engine.
@@ -47,7 +48,7 @@ After copying, you MUST verify that the following critical files exist in the ta
         3. Data Flow
         4. User Personas
     *   **Guidelines:** Generate `ProDoc/documentation/product-guidelines.md`. Extract specific business rules, product vision, or non-functional requirements that should guide decision making.
-    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.md` file containing a Level 1 System Diagram (Mermaid) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramFramework.md` rules.
+    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.md` file containing a Level 1 System Diagram (Mermaid) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramStandard.md` rules.
 
 ### **3. Agentic Workflows**
 *   **Goal:** Standardized operational procedures for the Agent.

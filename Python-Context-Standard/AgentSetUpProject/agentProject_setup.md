@@ -108,6 +108,11 @@ Requirements:
     *   `python -m venv venv`
     *   `source venv/bin/activate` (or `venv\Scripts\activate` on Windows).
     *   `touch .env`.
+3.  **Planning Infrastructure:**
+    *   `mkdir -p .agent/plans/active`
+    *   `mkdir -p .agent/plans/archive`
+    *   `touch .agent/plans/fastPlan.md`
+    *   `touch .agent/plans/plan_history_log.md`
 
 ### **Phase 2: Dependency Injection**
 1.  **Install:** `pip install -r requirements.txt`
