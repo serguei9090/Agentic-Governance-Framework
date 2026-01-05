@@ -242,6 +242,11 @@ stages:
     *   `touch .gitignore` (Population: `node_modules`, `.env`, `coverage`, `dist`, `__pycache__`, `.DS_Store`).
 2.  **Environment:**
     *   `touch .env` (Add `VITE_API_URL=http://localhost:8000`).
+3.  **Planning Infrastructure:**
+    *   `mkdir -p .agent/plans/active`
+    *   `mkdir -p .agent/plans/archive`
+    *   `touch .agent/plans/fastPlan.md`
+    *   `touch .agent/plans/plan_history_log.md`
 
 ### **Phase 2: Dependency Injection**
 1.  **Frontend/Root:** `npm install`

@@ -18,6 +18,13 @@ Only for "Trivial" tasks (typos, formatting, 1-line variable updates) is direct 
 
 To satisfy the need for speed on small tasks and robustness on large ones, we propose a Two-Tier system.
 
+### Classification: Protocol vs. Standard
+*   **Type**: **Protocol** (Primary) with embedded **Standard**.
+*   **Definition**:
+    *   **Protocol (Behavior)**: It dictates a *time-based sequence* of actions (Stop -> Plan -> Execute) that the agent must follow. This aligns with the definition of `.agent/workflows/` (Step-by-step procedures).
+    *   **Standard (Artifact)**: It defines a static strict format (Naming convention, Headers) that the output must adhere to.
+*   **Resolution**: Since it governs the *flow* of work, we classify it as a **Planning Protocol**.
+
 ### Tier 1: The "Fast Track" (Volatile)
 *   **Use Case**: Formatting, Single-line CSS fixes, Comments, Typos.
 *   **File**: `.agent/plans/fastPlan.md` (Always exists, constantly overwritten).

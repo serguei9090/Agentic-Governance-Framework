@@ -33,7 +33,7 @@ After copying, you MUST verify that the following critical files exist in the ta
     *   **Framework Binding:** You MUST explicitly reference the `.agent/rules` directory as the source of truth for all operational standards (Coding, Security, Testing). The agent acting on this file MUST understand it is an **Orchestrator** of these existing rules, not a creator of new ones.
     *   **Tech Stack Resolution:** Follow the priorities: User Definition > Framework Default > Agent Discretion.
     *   **Tooling Authority:** Create `ProDoc/tech-stack.md`. You MUST audit the Requirement File and output a categorized list (Frontend, Backend, Database, Cloud) of **ALL** mentioned technologies (e.g., if 'drain3' is mentioned, list it).
-    *   **Planning Protocol:** You MUST enforce the Two-Tier Planning Protocol. Before coding, determine complexity: If < 5 lines/1 file -> use `fastPlan.md`. Else -> Create `Plan_[Name]_[ID].md`. Refer to `.agent/rules/Workflows/PlanningProtocol.md`.
+    *   **Planning Protocol:** You MUST enforce the Two-Tier Planning Protocol. Before coding, determine complexity: If < 5 lines/1 file -> use `fastPlan.md`. Else -> Create `Plan_[Name]_[ID].md`. Refer to `.agent/workflows/PlanningProtocol.md`.
 
 ### **2. `ProDoc/` (Project Root)**
 *   **Purpose:** Knowledge Engine.
