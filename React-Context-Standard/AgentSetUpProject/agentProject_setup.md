@@ -4,6 +4,14 @@ Project Type: React Monorepo (Mobile/Desktop/Core)
 Architecture: Atomic Design (3-Tier)  
 Methodology: TDD & CI/CD with Local Docker
 
+### **Pre-Flight Protocol (Safety Interlock)**
+**STOP!** Before executing any scaffolding instructions below, you **MUST** confirm the "Brain" is active:
+1.  **Check Context:** Does `.agent/` exist?
+2.  **Check Persona:** Does `AGENTS.MD` exist in the root?
+3.  **Check Knowledge:** Is `ProDoc/documentation/product.md` populated with requirements?
+    *   **IF NO:** Do NOT proceed. Go back and run `agentContext.md` hydration.
+    *   **IF YES:** Proceed to Part 1.
+
 ## **PART 1: The Standards (Categorized Ruleset)**
 
 ### **1\. Architectural Standards (Atomic Design)**
