@@ -26,7 +26,8 @@ After copying, you MUST verify that the following critical files exist in the ta
 
 ---
 
-## **PART 2: Customization & Hydration**
+## **PART 2: Customization & Hydration (THE BRAIN)**
+> **CRITICAL WARNING:** This section is the most common point of failure. You **MUST** ensure `AGENTS.MD` and `ProDoc/` are fully populated. **Planning over Planning** is forbidden here — **DO** the hydration.
 
 ### **1. `AGENTS.MD` (The Persona)** (Project Root)
 *   **Purpose:** Defines the "Identity" of the AI Agent.
@@ -35,8 +36,10 @@ After copying, you MUST verify that the following critical files exist in the ta
     *   **Mission:** Maintain strict adherence to PEP 8, Type Hinting (MyPy), and Reflex patterns.
     *   **Framework Binding:** You MUST explicitly reference the `.agent/rules` directory as the source of truth for all operational standards (Coding, Security, Testing). The agent acting on this file MUST understand it is an **Orchestrator** of these existing rules, not a creator of new ones.
     *   **Tech Stack Resolution:** Follow the priorities: User Definition > Framework Default > Agent Discretion.
-    *   **Tooling Authority:** Create `ProDoc/tech-stack.md`. You MUST audit the Requirement File and output a categorized list (Frontend, Backend, Database, Cloud) of **ALL** mentioned technologies (e.g., if 'Ruff' is mentioned, list it).
-    *   **Planning Protocol:** You MUST enforce the Two-Tier Planning Protocol. Before coding, determine complexity: If < 5 lines/1 file -> use `fastPlan.md`. Else -> Create `Plan_[Name]_[ID].md`. Refer to `.agent/workflows/PlanningProtocol.md`.
+    *   **Tooling Authority:** Create `ProDoc/tech-stack.md`. You MUST audit the Requirement File.
+        *   **IF** the project needs a component (e.g., Database) but user didn't specify one -> Select the **Top Enterprise Standard** (best fit).
+        *   **IF** the project does **NOT** need a component (e.g., Landing Page = No DB) -> **OMIT IT**. Do not hallucinate dependencies using the "Best Fit" rule for unneeded components.
+    *   **Planning Protocol:** You **SHOULD** reference `.agent/workflows/PlanningProtocol.md` for complex tasks, but this is OPTIONAL for initial setup unless specified.
 
 ### **2. `ProDoc/` (Project Root)**
 *   **Purpose:** Knowledge Engine.
@@ -47,8 +50,9 @@ After copying, you MUST verify that the following critical files exist in the ta
         2. Feature List
         3. Data Flow
         4. User Personas
-    *   **Guidelines:** Generate `ProDoc/documentation/product-guidelines.md`. Extract specific business rules, product vision, or non-functional requirements that should guide decision making.
-    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.md` file containing a Level 1 System Diagram (Mermaid) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramStandard.md` rules.
+    *   **Product Guidelines:** Generate `ProDoc/documentation/product-guidelines.md`. Extract any specific business rules, product vision, or non-functional requirements found in the input.
+    *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.md` file (Markdown) containing a Level 1 System Diagram (Mermaid block) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramStandard.md` rules.
+    *   **HYDRATION CHECK:** If `ProDoc/documentation/product.md` contains only "TODO" or is empty, you have FAILED. Go back and extract the requirements.
 
 ### **3. Agentic Workflows**
 *   **Goal:** Standardized operational procedures for the Agent.
@@ -62,5 +66,6 @@ After copying, you MUST verify that the following critical files exist in the ta
 
 1.  Read this file completely.
 2.  **Execute Part 1 (Bulk Injection).**
-3.  **Execute Part 2 (Hydration).**
+3.  Perform Customization & Hydration (Part 2), including the creation of `AGENTS.MD`, `ProDoc/`, and Pruning of unused rules.
+    *   **STOP:** Check if `AGENTS.MD` exists. Check if `ProDoc/documentation/product.md` has content. If not, RESTART Step 3.
 4.  Populate each file with professional, comprehensive technical writing suitable for Senior Engineers.
