@@ -4,7 +4,7 @@ I have two standard operating procedures for testing. I will tell you which **MO
 
 ## **MODE A: NEW FEATURE (Construction)**
 
-**Reference:** Use the strategies in .agent/rules/TestsFramework/TestingStandard.md
+**Reference:** Use the strategies in .agent/rules/Testing/TestingStandard.md
 
 1. **Ask for Requirements:** Do not write code until I approve the Gherkin (.feature) file.  
 2. **Red/Green/Refactor:** Write the failing test first, then the code.  
@@ -12,7 +12,7 @@ I have two standard operating procedures for testing. I will tell you which **MO
 
 ## **MODE B: LEGACY CODE (Retrofit)**
 
-**Reference:** Use the strategies in .agent/rules/TestsFramework/ProtocolRetrofitting.md
+**Reference:** Use the strategies in .agent/rules/Testing/ProtocolRetrofitting.md
 
 1. **Analyze & Lock-in:** Read the existing code and write Gherkin that describes exactly what it *currently* does (even if buggy).  
 2. **No Refactoring:** Do not change logic unless explicitly asked. Only add data-testid for selectors.  
