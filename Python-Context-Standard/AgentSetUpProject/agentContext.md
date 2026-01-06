@@ -51,8 +51,14 @@ After copying, you MUST verify that the following critical files exist in the ta
         3. Data Flow
         4. User Personas
     *   **Product Guidelines:** Generate `ProDoc/documentation/product-guidelines.md`. Extract any specific business rules, product vision, or non-functional requirements found in the input.
+    *   **Relations Map:** Generate `ProDoc/documentation/relations.md`.
+        *   **Source:** Copy the table structure from `.agent/rules/ProDoc/RelationsStandard.md`.
+        *   **Action:** Populate it with the initial Features -> State mapping based on your System Diagram.
     *   **Day 1 Diagram:** IMMEDIATELY after generating the context, you MUST generate a `ProDoc/system_context.md` file (Markdown) containing a Level 1 System Diagram (Mermaid block) that visualizes the User -> Frontend -> Backend flow defined in the requirements. Use `DiagramStandard.md` rules.
-    *   **HYDRATION CHECK:** If `ProDoc/documentation/product.md` contains only "TODO" or is empty, you have FAILED. Go back and extract the requirements.
+    *   **HYDRATION CHECK:**
+        *   If `ProDoc/documentation/product.md` contains only "TODO" or is empty -> **FAIL**.
+        *   If `ProDoc/documentation/product-guidelines.md` is MISSING -> **FAIL**.
+        *   **Action:** Go back and retry hydration.
 
 ### **3. Agentic Workflows**
 *   **Goal:** Standardized operational procedures for the Agent.
@@ -67,5 +73,8 @@ After copying, you MUST verify that the following critical files exist in the ta
 1.  Read this file completely.
 2.  **Execute Part 1 (Bulk Injection).**
 3.  Perform Customization & Hydration (Part 2), including the creation of `AGENTS.MD`, `ProDoc/`, and Pruning of unused rules.
-    *   **STOP:** Check if `AGENTS.MD` exists. Check if `ProDoc/documentation/product.md` has content. If not, RESTART Step 3.
+    *   **STOP:** Check if `AGENTS.MD` exists.
+    *   **STOP:** Check if `ProDoc/documentation/product.md` has content.
+    *   **STOP:** Check if `ProDoc/documentation/product-guidelines.md` exists.
+    *   If any are missing, RESTART Step 3.
 4.  Populate each file with professional, comprehensive technical writing suitable for Senior Engineers.
