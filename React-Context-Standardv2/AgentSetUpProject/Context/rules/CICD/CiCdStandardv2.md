@@ -8,7 +8,7 @@
 ## 2. Workflow (The Pipeline Decision Tree)
 1.  **Event:** Push to `main`? -> **Production Release**.
 2.  **Event:** Pull Request? -> **CI Check (Lint + Test)**.
-3.  **Step 1:** Run `gitleaks` & `eslint`. (Block on failure).
+3.  **Step 1:** Run `gitleaks` & `biome`. (Block on failure).
 4.  **Step 2:** Run `vitest`. (Block on failure).
 5.  **Step 3:** Build Container/Artifact.
 6.  **Step 4:** Push to Registry (DockerHub/ECR).
@@ -46,8 +46,8 @@ jobs:
       - name: Install
         run: npm ci
         
-      - name: Lint & Format
-        run: npm run lint
+      - name: Lint & Format (Biome)
+        run: npx @biomejs/biome ci .
         
       - name: Type Check
         run: npx tsc --noEmit

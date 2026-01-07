@@ -1,27 +1,26 @@
 # Code Quality Framework (v2)
 
 ## 1. Core Principles (Invariants)
+*   **One Tool:** Use `Biome` for both Linting and Formatting. (Speed > Granularity).
 *   **Zero Bugs:** Reliability Rating MUST be A.
 *   **Zero Debt:** Technical Debt Ratio < 5%.
-*   **Formatting:** Prettier is non-negotiable. Code without it is "Dirty".
 *   **Local Enforcement:** Hooks (Lefthook) must catch errors BEFORE they reach CI.
 
 ## 2. Workflow (The Quality Gate)
 1.  **Pre-Commit:**
-    *   `prettier --check` (Format).
-    *   `eslint` (Logic).
+    *   `biome check --files-ignore-unknown=true` (Format + Lint).
     *   `gitleaks` (Secrets).
 2.  **Pre-Push:**
     *   `npm test` (Unit Integrity).
 3.  **CI Analysis:**
-    *   SonarQube Scan (Deep Analysis).
+    *   Biome CI Check.
+    *   SonarQube Scan (Deep Analysis - Optional).
 4.  **Merge Check:**
     *   If Quality Gate fails -> PR Blocked.
 
 ## 3. Toolchain (Strict)
 *   **Orchestrator:** `Lefthook` (Fast, parallel, Go-based).
-*   **Linter:** `ESLint` + `eslint-plugin-sonarjs`.
-*   **Formatter:** `Prettier`.
+*   **Engine:** `Biome` (Rust-based, replaces ESLint + Prettier).
 *   **Commit Msg:** `Commitlint` (Conventional Commits).
 
 ## 4. Forbidden Patterns (Strict)
@@ -40,19 +39,14 @@ pre-commit:
     secrets:
       run: gitleaks protect --staged
     
-    # 2. Format Scan (Fast)
-    format:
-      glob: "*.{js,ts,tsx,md,json}"
-      run: npx prettier --check {staged_files}
-    
-    # 3. Logic Scan
-    lint:
-      glob: "*.{js,ts,tsx}"
-      run: npx eslint {staged_files}
+    # 2. Biome (Format & Lint)
+    check:
+      glob: "*.{js,ts,tsx,json,css}"
+      run: npx @biomejs/biome check --files-ignore-unknown=true {staged_files}
 
 commit-msg:
   commands:
-    # 4. Message Standard (feat: ...)
+    # 3. Message Standard (feat: ...)
     commitlint:
       run: npx commitlint --edit {1}
 ```
