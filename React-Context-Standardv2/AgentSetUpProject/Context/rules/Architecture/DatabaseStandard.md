@@ -8,9 +8,9 @@
 
 ## 2. Workflow (Migration Cycle)
 1.  **Edit Schema:** Modify `schema.prisma`.
-2.  **Generate Migration:** Run `npx prisma migrate dev --name <kebab-case-desc>`.
+2.  **Generate Migration:** Run `[EXECUTE_CMD] prisma migrate dev --name <kebab-case-desc>`.
 3.  **Review SQL:** Check the generated SQL file for destructive actions (DROP).
-4.  **Update Client:** Run `npx prisma generate` to update types.
+4.  **Update Client:** Run `[EXECUTE_CMD] prisma generate` to update types.
 5.  **Commit:** `schema.prisma` AND the migration folder MUST be committed.
 
 ## 3. Directory & Naming

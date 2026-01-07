@@ -11,7 +11,7 @@
     *   `biome check --files-ignore-unknown=true` (Format + Lint).
     *   `gitleaks` (Secrets).
 2.  **Pre-Push:**
-    *   `npm test` (Unit Integrity).
+    *   `[PKG_MANAGER] test` (Unit Integrity).
 3.  **CI Analysis:**
     *   Biome CI Check.
     *   SonarQube Scan (Deep Analysis - Optional).
@@ -42,11 +42,11 @@ pre-commit:
     # 2. Biome (Format & Lint)
     check:
       glob: "*.{js,ts,tsx,json,css}"
-      run: npx @biomejs/biome check --files-ignore-unknown=true {staged_files}
+      run: [EXECUTE_CMD] @biomejs/biome check --files-ignore-unknown=true {staged_files}
 
 commit-msg:
   commands:
     # 3. Message Standard (feat: ...)
     commitlint:
-      run: npx commitlint --edit {1}
+      run: [EXECUTE_CMD] commitlint --edit {1}
 ```

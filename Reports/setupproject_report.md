@@ -29,6 +29,7 @@ The orchestration files were reviewed against the newly established **v2 Standar
     *   **Linting:** Switched to **Biome** (Constraint & Config).
     *   **Testing:** Switched to **Vitest** for Web/Desktop (Directive & Setup). Retained Jest for Mobile.
     *   **Hooks:** Implemented **Lefthook** -> **Lint-Staged** -> **Biome/Vitest** chain.
+    *   **Compat:** Fully **Package Manager Agnostic** (Supports `npm`, `pnpm`, `bun`).
 *   **Action:** Ready for use.
 
 ## 3. Score & Next Steps

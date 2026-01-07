@@ -48,4 +48,4 @@
 # Deployment
 - [ ] Vercel
 ```
-*Resulting Actions:* Agent creates `.github/workflows/ci.yml` running `npm test`. No deployment job.
+*Resulting Actions:* Agent creates `.github/workflows/ci.yml` running `[PKG_MANAGER] test`. No deployment job.

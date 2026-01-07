@@ -4,6 +4,11 @@ Project Type: React Monorepo (Mobile/Desktop/Core)
 Architecture: Atomic Design (3-Tier)  
 Methodology: TDD & CI/CD with Local Docker
 
+### **Variable Definitions**
+*   **`[PKG_MANAGER]`**: Generic placeholder. Replace with user selection: `npm`, `pnpm`, or `bun`.
+*   **`[EXECUTE_CMD]`**: Generic placeholder. Replace with: `npx`, `pnpm dlx`, or `bunx`.
+*   **`[LOCK_FILE]`**: `package-lock.json`, `pnpm-lock.yaml`, or `bun.lockb`.
+
 ### **Pre-Flight Protocol (Safety Interlock)**
 **STOP!** Before executing any scaffolding instructions below, you **MUST** confirm the "Brain" is active:
 1.  **Check Context:** Does `.agent/` exist?
@@ -145,8 +150,8 @@ Requirements:
       "private": true,
       "workspaces": ["apps/*", "packages/*"],
       "scripts": {
-        "build": "npm run build --workspaces",
-        "test": "npm run test --workspaces"
+        "build": "[PKG_MANAGER] run build --workspaces",
+        "test": "[PKG_MANAGER] run test --workspaces"
       }
     }
     ```
@@ -218,26 +223,32 @@ variables:
 stages:  
   \- name: "Sanity Check"  
     steps:  
-      \- command: "npm run lint"  
+      \- command: "[PKG_MANAGER] run lint"  
         description: "Checks code style and import sorting (Standard 2)."  
-      \- command: "npm run type-check"  
+      \- command: "[PKG_MANAGER] run type-check"  
         description: "Verifies TypeScript integrity."
 
   \- name: "Logic Verification (TDD)"  
     steps:  
-      \- command: "npm run test:unit \-- \--coverage"  
-        description: "Runs Jest unit tests. Fails if coverage \< 80% (Standard 3)."  
+  \- name: "Logic Verification (TDD)"  
+    steps:  
+      \- command: "[PKG_MANAGER] run test:unit \-- \--coverage"  
+        description: "Runs Unit tests. Fails if coverage \< 80% (Standard 3)."  
         output: "${COVERAGE\_DIR}/lcov-report/index.html"
 
   \- name: "Build Verification"  
     steps:  
-      \- command: "npm run build:core"  
-      \- command: "npm run build:web"  
+  \- name: "Build Verification"  
+    steps:  
+      \- command: "[PKG_MANAGER] run build:core"  
+      \- command: "[PKG_MANAGER] run build:web"  
         description: "Ensures the app compiles for desktop/web."
 
   \- name: "User Simulation (E2E)"  
     steps:  
-      \- command: "npm run test:e2e"  
+  \- name: "User Simulation (E2E)"  
+    steps:  
+      \- command: "[PKG_MANAGER] run test:e2e"  
         description: "Runs Playwright scenarios against the built web app."  
         output: "${REPORTS\_DIR}/playwright-report"
 
@@ -269,21 +280,21 @@ stages:
     *   `touch .agent/plans/plan_history_log.md`
 
 ### **Phase 2: Dependency Injection**
-1.  **Frontend/Root:** `npm install`
+1.  **Frontend/Root:** `[PKG_MANAGER] install`
 
 ### **Phase 3: QA & DX Setup (The Safety Net)**
 1.  **Lefthook (Orchestrator):**
-    *   Install: `npm install -D lefthook`
+    *   Install: `[PKG_MANAGER] install -D lefthook`
     *   Config: Create `lefthook.yml`.
         ```yaml
         pre-commit:
           parallel: true
           commands:
             check:
-              run: npx lint-staged
+              run: [EXECUTE_CMD] lint-staged
         ```
 2.  **Lint-Staged (Filter):**
-    *   Install: `npm install -D lint-staged`
+    *   Install: `[PKG_MANAGER] install -D lint-staged`
     *   Config: Create `.lintstagedrc`.
     *   *Rule:* 
         ```json
@@ -304,7 +315,7 @@ stages:
 
 ### **Phase 4: Testing Infrastructure**
 1.  **Vitest Injection:**
-    *   Install: `npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom jsdom`
+    *   Install: `[PKG_MANAGER] install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom jsdom`
     *   Setup: Create `apps/web/src/test/setup.ts` { import '@testing-library/jest-dom'; }
     *   Create a dummy test `apps/web/src/App.test.tsx` to confirm the runner passes.
 

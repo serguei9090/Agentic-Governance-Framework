@@ -20,7 +20,7 @@
 *   **Secrets:** NEVER commit secrets. Use Repository Secrets (`${{ secrets.API_KEY }}`).
 
 ## 4. Forbidden Patterns (Strict)
-1.  **Works on My Machine:** Using shell commands that only work locally. Use `make` or `npm run` scripts inside Docker.
+1.  **Works on My Machine:** Using shell commands that only work locally. Use `make` or `[PKG_MANAGER] run` scripts inside Docker.
 2.  **Skipping Tests:** `git push --no-verify` or disabling CI checks for "emergency fixes".
 3.  **Hardcoded Config:** `const API_URL = "http://localhost:3000"`. Use `process.env.API_URL`.
 4.  **Long Lived Branches:** Feature branches living > 2 days without merge.
@@ -44,13 +44,13 @@ jobs:
         with: { node-version: 20 }
       
       - name: Install
-        run: npm ci
+        run: [PKG_MANAGER] install
         
       - name: Lint & Format (Biome)
-        run: npx @biomejs/biome ci .
+        run: [EXECUTE_CMD] @biomejs/biome ci .
         
       - name: Type Check
-        run: npx tsc --noEmit
+        run: [EXECUTE_CMD] tsc --noEmit
 
   test:
     needs: quality
@@ -58,9 +58,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-      - run: npm ci
+      - run: [PKG_MANAGER] install
       - name: Unit Tests
-        run: npm run test:coverage
+        run: [PKG_MANAGER] run test:coverage
 
   build:
     needs: test
