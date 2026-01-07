@@ -1,6 +1,6 @@
 ---
 name: test-coverage-report
-description: Run unit tests and coverage for this repository (npm test, npm run test:coverage) and write a summary report to reports/code_test_report.md. Use when the user asks to execute tests/coverage and produce or refresh the test report.
+description: Run unit tests and coverage for this repository ([PKG_MANAGER] test, [PKG_MANAGER] run test:coverage) and write a summary report to reports/code_test_report.md. Use when the user asks to execute tests/coverage and produce or refresh the test report.
 ---
 
 # Test Coverage Report
@@ -16,11 +16,11 @@ Run the repo unit tests and coverage, then capture the results in `reports/code_
 - Otherwise, proceed with execution.
 
 ### 2) Run unit tests
-- From repo root, run `npm test`.
+- From repo root, run `[PKG_MANAGER] test`.
 - Capture pass/fail summary and any notable warnings.
 
 ### 3) Run coverage
-- From repo root, run `npm run test:coverage`.
+- From repo root, run `[PKG_MANAGER] run test:coverage`.
 - **Optimization:** Ensure the `text-summary` reporter is used (if supported) to get a concise console output, or parse the `reports/coverage/index.html` if available.
 - Capture coverage summaries for each workspace/package and any failures.
 - Code Coverage acceptance criteria is > 80%
@@ -39,8 +39,8 @@ Use this template:
 # Code Test Report
 
 Commands run:
-- `npm test`
-- `npm run test:coverage`
+- `[PKG_MANAGER] test`
+- `[PKG_MANAGER] run test:coverage`
 
 Unit test results:
 - <package/workspace>: <summary>

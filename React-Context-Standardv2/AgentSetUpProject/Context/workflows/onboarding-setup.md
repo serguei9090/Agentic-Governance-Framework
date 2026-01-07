@@ -11,8 +11,8 @@ Get from "git clone" to "running app" in under 5 minutes.
 ## Workflow
 
 ### 1) Dependencies
-- Run `npm ci` (Clean Install from lockfile).
-- **If failure:** Run `npm install` and update lockfile.
+- Run `[PKG_MANAGER] install` (Clean Install from lockfile).
+- **If failure:** Verify lockfile integrity or delete node_modules and retry.
 
 ### 2) Environment
 - Check if `.env` exists.
@@ -21,11 +21,11 @@ Get from "git clone" to "running app" in under 5 minutes.
 
 ### 3) Infrastructure (Optional)
 - If `docker-compose.yml` exists: `docker-compose up -d`.
-- If `schema.prisma` exists: `npx prisma generate`.
+- If `schema.prisma` exists: `[EXECUTE_CMD] prisma generate`.
 
 ### 4) Verification
-- Run `npm test` (Sanity Check).
-- Run `npm run dev` (Start Server).
+- Run `[PKG_MANAGER] test` (Sanity Check).
+- Run `[PKG_MANAGER] run dev` (Start Server).
 
 ## Success Criteria
 - [ ] Dependencies installed.

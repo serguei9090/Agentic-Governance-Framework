@@ -1,13 +1,13 @@
 ---
-name: eslint-report
-description: Run ESLint (npm run lint) for this repository and write a concise lint summary to reports/code_lint_report.md plus a detailed report to reports/code_lint_detailed_report.md. Use when asked to execute linting, check lint status, or produce or refresh a lint report.
+name: quality-report
+description: Run Code Quality Checks (BiomeLint) for this repository. Writes summary to reports/code_quality_report.md.
 ---
 
-# ESLint Report
+# Code Quality Report
 
 ## Overview
 
-Run repo linting and capture results in `reports/code_lint_report.md` plus a detailed report in `reports/code_lint_detailed_report.md`.
+Run repo quality checks (Biome) and capture results in `reports/code_quality_report.md`.
 
 ## Workflow
 
@@ -16,8 +16,8 @@ Run repo linting and capture results in `reports/code_lint_report.md` plus a det
 - Otherwise, proceed with execution.
 
 ### 2) Run lint
-- From the repo root, run `npm run lint`.
-- **Optimization:** If available or if accuracy is critical, use `npm run lint -- --format json` to get a machine-readable output.
+- From the repo root, run `[PKG_MANAGER] run lint`.
+- **Optimization:** If available, use `[EXECUTE_CMD] @biomejs/biome check --format json` to get a machine-readable output.
 - Capture pass/fail summary and any notable warnings or failures.
 - If lint runs per workspace (e.g., via Turbo), note each package/workspace result.
 
@@ -44,7 +44,7 @@ Use these templates:
 # Code Lint Report
 
 Command run:
-- `npm run lint`
+- `[PKG_MANAGER] run lint`
 
 Lint results:
 - <package/workspace>: <summary>
@@ -57,7 +57,7 @@ Notes:
 # Code Lint Detailed Report
 
 Command run:
-- `npm run lint`
+- `[PKG_MANAGER] run lint`
 
 Lint results:
 - <package/workspace>: <summary>

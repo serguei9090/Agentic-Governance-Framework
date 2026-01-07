@@ -11,7 +11,7 @@ Keep the software supply chain fresh to avoid "Code Rot".
 ## Workflow
 
 ### 1) Detection
-- Run `npm outdated --json`.
+- Run `[PKG_MANAGER] outdated`.
 
 ### 2) Categorization
 - **Safe:** Patch updates (1.0.1 -> 1.0.2).
@@ -19,7 +19,7 @@ Keep the software supply chain fresh to avoid "Code Rot".
 - **Dangerous:** Major updates (1.0.0 -> 2.0.0).
 
 ### 3) Verification
-- For "Safe" updates: Try `npm update`, run tests.
+- For "Safe" updates: Try `[PKG_MANAGER] update`, run tests.
 - For others: List them in the report for human review.
 
 ## Report Template (`reports/dependency_health.md`)

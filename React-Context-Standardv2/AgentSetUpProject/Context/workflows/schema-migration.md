@@ -18,12 +18,12 @@ description: Safely Migrate Database Schema. Use when `schema.prisma` changes.
 - Instruct user/script to snapshot the DB.
 
 ### 3) Migration
-- Run `npx prisma migrate dev --name <migration_name>`.
+- Run `[EXECUTE_CMD] prisma migrate dev --name <migration_name>`.
 - Capture output.
 
 ### 4) Regeneration
-- Run `npx prisma generate` (Update Client).
-- Run `npm run type-check` (Ensure API matches new DB).
+- Run `[EXECUTE_CMD] prisma generate` (Update Client).
+- Run `[PKG_MANAGER] run type-check` (Ensure API matches new DB).
 
 ## Report Template (`reports/migration_status.md`)
 

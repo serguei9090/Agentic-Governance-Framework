@@ -11,14 +11,14 @@ Safely prepare the repo for deployment by validating the build, bumping the vers
 ## Workflow
 
 ### 1) Validation
-- Run `npm run type-check` (Must be clean).
-- Run `npm run build` (Must succeed).
-- Run `npm test` (Must pass).
+- Run `[PKG_MANAGER] run type-check` (Must be clean).
+- Run `[PKG_MANAGER] run build` (Must succeed).
+- Run `[PKG_MANAGER] test` (Must pass).
 
 ### 2) Versioning
-- **IF** this is a patch (bugfix): `npm version patch --no-git-tag-version`.
-- **IF** this is a feature: `npm version minor --no-git-tag-version`.
-- **IF** breaking change: **STOP**. Ask user for explicit confirmation before `npm version major`.
+- **IF** this is a patch (bugfix): `[PKG_MANAGER] version patch --no-git-tag-version`.
+- **IF** this is a feature: `[PKG_MANAGER] version minor --no-git-tag-version`.
+- **IF** breaking change: **STOP**. Ask user for explicit confirmation before `[PKG_MANAGER] version major`.
 
 ### 3) Documentation
 - Append entry to `CHANGELOG.md`.
