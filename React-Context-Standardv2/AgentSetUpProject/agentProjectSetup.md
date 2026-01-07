@@ -192,6 +192,18 @@ Requirements:
 *   **Create File:** `apps/web/src/main.tsx` (React Root).
 *   **Create File:** `apps/web/src/App.tsx` (Hello World component).
 
+### **Directive 8: Scaffold UI Package (packages/ui)**
+
+Task: Create the Shared UI Library.
+Requirements:
+*   **Create File:** `packages/ui/package.json`
+    *   Name: `@pkg/ui`
+    *   Main: `./src/index.ts`
+    *   React Native: `./src/index.native.ts`
+*   **Create File:** `packages/ui/src/index.ts` (Web Entry - Export web components).
+*   **Create File:** `packages/ui/src/index.native.ts` (Native Entry - Export native components).
+*   **Note:** Ensure strict separation of platform-specific code.
+
 ### **Directive 9: Generate biome.json (Root Linting)**
 
 Task: Create the Universal Quality Config.

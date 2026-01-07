@@ -8,6 +8,7 @@
     * Web/Desktop: `*.tsx` (No React Native imports).
     * Native: `*.native.tsx` (No `react-dom`/HTML imports).
     * Shared logic: Use `*.ts` or strict interface abstraction.
+    * Entry Points: `index.ts` (Web), `index.native.ts` (Native).
 
 ## 2. Workflow (Component Classification)
 1.  **Is it a single block?** -> **Atom**.
@@ -32,13 +33,15 @@ Path: `packages/ui/src/[type]/[Name]/`
 * `[Name].native.tsx` (Native implementation - Optional)
 * `[Name].types.ts` (Prop interfaces - Required)
 * `[Name].styles.ts` (Styles using Generated Tokens - Required)
-* `index.ts` (Public export - Required)
+* `index.ts` (Web Public API - Required)
+* `index.native.ts` (Mobile Public API - Required)
 
 ## 5. Forbidden Patterns (Strict)
 1.  **Logic Leak:** `useEffect(() => fetch('/api'))` inside `packages/ui`.
 2.  **Style Drift:** `backgroundColor: '#ff0000'` (Must use `tokens.colors.danger`).
 3.  **Layout Pollution:** Atoms defining `margin` (Layout belongs to parent/Molecules).
 4.  **Cross-Pollution:** Importing `react-native` in a `.tsx` file or `react-dom` in `.native.tsx`.
+5.  **Polluted Entry:** Exporting Native components in `index.ts` (Web Entry) or Web components in `index.native.ts` (Native Entry).
 
 ## 6. Golden Example (The Ideal Molecule)
 ```tsx
