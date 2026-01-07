@@ -1,6 +1,6 @@
 # **Agent Context Generation Master Protocol**
 
-**Reference Base:** `agentproject_setup.md`
+**Reference Base:** `agentProjectSetup.md`
 **Goal:** Generate a comprehensive `.agent` system context folder that governs all future AI interactions and development standards for the project.
 
 ---
@@ -34,9 +34,11 @@ After copying, you MUST verify that the following critical files exist in the ta
     *   **Framework Binding:** You MUST explicitly reference the `.agent/rules` directory as the source of truth for all operational standards (Coding, Security, Testing). The agent acting on this file MUST understand it is an **Orchestrator** of these existing rules, not a creator of new ones.
     *   **Tech Stack Resolution:** Follow the priorities: User Definition > Framework Default > Agent Discretion.
     *   **Tooling Authority:** Create `ProDoc/tech-stack.md`. You MUST audit the Requirement File.
+        *   **MANDATORY:** You MUST initialize the stack with **Biome** (Lint/Format) and **Vitest** (Test). These are non-negotiable Standards.
         *   **IF** the project needs a component (e.g., Database) but user didn't specify one -> Select the **Top Enterprise Standard** (best fit).
         *   **IF** the project does **NOT** need a component (e.g., Landing Page = No DB) -> **OMIT IT**. Do not hallucinate dependencies using the "Best Fit" rule for unneeded components.
-    *   **Planning Protocol:** You **SHOULD** reference `.agent/workflows/PlanningProtocol.md` for complex tasks, but this is OPTIONAL for initial setup unless specified.
+    *   **Planning Protocol:** You **SHOULD** reference `.agent/workflows/PlanningProtocol.md` for complex tasks.
+    *   **Ops Mode Awareness:** You MUST reference `.agent/rules/Testing/MasterAgentOpsModeStandard.md` to understand your two operating modes: **Construction** (New Feature) vs **Retrofit** (Legacy).
 
 ### **2. `ProDoc/` (Project Root)**
 *   **Purpose:** Knowledge Engine.
