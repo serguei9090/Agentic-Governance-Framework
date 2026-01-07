@@ -82,21 +82,46 @@ Methodology: TDD & CI/CD with Local Docker
 
 *Instructions for the AI Agent to generate specific infrastructure files based on the standards above.*
 
-### **Directive 1: Generate tokens.ts (Tier 1\)**
+### **Directive 1: Setup Style Dictionary (Tokens)**
 
-Task: Create the Design Token definition file.  
-Requirements:
-
-* Export const objects for COLORS, SPACING, TYPOGRAPHY, and SHADOWS.  
-* Use semantic naming (e.g., COLORS.primary, COLORS.status.error instead of COLORS.red).  
-* **Output File:** packages/ui/src/tokens/index.ts
+Task: Initialize the Token Build System.
+Steps:
+1.  **Install:** `[PKG_MANAGER] install -D style-dictionary` in `packages/ui`.
+2.  **Source:** Create `packages/ui/tokens/src/custom/color.json`.
+    ```json
+    {
+      "color": {
+        "primary": { "value": "#0070f3" },
+        "secondary": { "value": "#ff4081" }
+      }
+    }
+    ```
+3.  **Config:** Create `packages/ui/sd.config.js`.
+    ```javascript
+    module.exports = {
+      source: ["tokens/src/**/*.json"],
+      platforms: {
+        js: {
+          transformGroup: "js",
+          buildPath: "tokens/dist/js/",
+          files: [{ destination: "tokens.js", format: "javascript/module" }]
+        },
+        css: {
+          transformGroup: "css",
+          buildPath: "tokens/dist/css/",
+          files: [{ destination: "variables.css", format: "css/variables" }]
+        }
+      }
+    };
+    ```
+4.  **Build:** Run `[EXECUTE_CMD] style-dictionary build --config sd.config.js`.
 
 ### **Directive 2: Generate button.component.tsx (Tier 2\)**
 
 Task: Create the standardized Button component for Desktop/Web.  
 Requirements:
 
-* Import tokens from Directive 1\.  
+* Import tokens from Directive 1 (`import { tokens } from '../../tokens/dist/js/tokens'`).  
 * Accept props: variant (primary/secondary), size, label, onClick, isLoading.  
 * **Strict Rule:** No margin in the root styles.  
 * Use TypeScript interfaces.  

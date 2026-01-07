@@ -2,7 +2,7 @@
 
 ## 1. Core Principles (Invariants)
 * **Presentation Only:** `packages/ui` NEVER imports `packages/core`. No business logic, no API calls, no persistence. Data enters via props.
-* **Token Truth:** Use `tokens` object only. No hard-coded hex/spacing.
+* **Token Truth:** Source of Truth is **Style Dictionary (JSON)**. Generated output is Read-Only.
 * **Public API:** Deep imports prohibited (e.g., `import X from 'ui/atoms/X'`). Import only from root: `@{scope}/ui`.
 * **Platform Split:**
     * Web/Desktop: `*.tsx` (No React Native imports).
@@ -17,7 +17,9 @@
 5.  **Does it Fetch Data?** -> **Page**.
 
 ## 3. Atomic Hierarchy (packages/ui)
-**2.0 Tokens** (`/tokens`): Definitions only. No components.
+**2.0 Tokens** (`/tokens`):
+    *   `src/**/*.json`: **Source of Truth** (Raw Design Values).
+    *   `dist/`: **Generated** (TS/CSS outputs via Style Dictionary).
 **2.1 Atoms** (`/atoms`): Smallest blocks (Button, Icon). No external margins. Props in/UI out.
 **2.2 Molecules** (`/molecules`): Compositions of atoms (SearchInput). No business logic.
 **2.3 Organisms** (`/organisms`): Complex sections (Header, LoginForm). Internal layout allowed. No data fetching.
@@ -29,7 +31,7 @@ Path: `packages/ui/src/[type]/[Name]/`
 * `[Name].tsx` (Web implementation)
 * `[Name].native.tsx` (Native implementation - Optional)
 * `[Name].types.ts` (Prop interfaces - Required)
-* `[Name].styles.ts` (Styles using Tokens - Required)
+* `[Name].styles.ts` (Styles using Generated Tokens - Required)
 * `index.ts` (Public export - Required)
 
 ## 5. Forbidden Patterns (Strict)
@@ -44,7 +46,7 @@ Path: `packages/ui/src/[type]/[Name]/`
 import React, { useState } from 'react';
 import { View, TextInput } from 'react-native'; // Or 'react-dom' divs depends on platform
 import { Button } from '../../atoms/Button';
-import { tokens } from '../../tokens'; // Direct internal access
+import { tokens } from '../../tokens/dist/js/tokens'; // Generated Imports
 import { SearchInputProps } from './SearchInput.types';
 
 export const SearchInput = ({ onSearch, placeholder }: SearchInputProps) => {
