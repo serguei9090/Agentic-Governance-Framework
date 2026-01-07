@@ -1,82 +1,38 @@
-# **ProDoc: The Living Knowledge Engine**
+# ProDoc: The Living Knowledge Engine (v2)
 
-**Objective:** AI Agents lack long-term memory. This framework enforces a "Living Knowledge Graph" that allows Agents to understand the system without reading every file.
+## 1. Core Principles (Invariants)
+*   **Living Graph:** Documentation must be treated as code. If it lies, it dies.
+*   **Staleness Protocol:** If `git log` shows >50 changes since last `relations.md` update, Agent MUST regenerate it.
+*   **No Read-All:** Agents must rely on `ProDoc` context, not full directory scans (Token efficiency).
 
-## **1. The Directory Structure**
+## 2. Workflow (The Update Cycle)
+1.  **Trigger:** Significant Refactor OR New Feature.
+2.  **Audit:** Read `tech-stack.md` and `relations.md`.
+3.  **Update:** 
+    *   Add new Libraries to `tech-stack.md`.
+    *   Add new Edges (Dependencies) to `relations.md`.
+4.  **Verify:** Does the Graph match the Code?
 
-The Agent MUST maintain the following structure in the project root:
+## 3. Directory Structure (Strict)
+*   **Root:** `ProDoc/`.
+*   **Vision:** `ProDoc/documentation/product.md` (Why we are building).
+*   **Graph:** `ProDoc/relations/relations.md` (How it works).
+*   **Stack:** `ProDoc/tech-stack.md` (What we use).
 
-```text
-/ProDoc
-  ├── tech-stack.md          (The Official Toolbelt)
-  ├── /diagrams
-  │    └── diagrams.md       (Mermaid.js Visuals)
-  ├── /documentation
-  │    ├── product.md        (Vision & Features)
-  │    ├── product-guidelines.md (Design & Interaction)
-  │    └── use_cases.md      (Business Logic & Intent)
-  └── /relations
-       ├── relations.md      (The Dependency Graph)
-       └── database_schema.md (Live DB Structure - Optional)
+## 4. Forbidden Patterns (Strict)
+1.  **Ghost Docs:** Documenting features that were deleted.
+2.  **Secret Knowledge:** "Everyone knows X" logic not written in `product-guidelines.md`.
+3.  **Wiki Rot:** Using external Wikis (Confluence/Notion) for Architecture. It MUST be in Repo.
+
+## 5. Golden Example (The Tech Stack)
+```markdown
+# Technology Stack
+## Core
+- **Language:** TypeScript 5.x
+- **Framework:** Next.js 14 (App Router)
+- **State:** Zustand
+
+## Decisions
+- **Why Zustand?** Redux is too verbose for this team size.
+- **Why Tailwind?** Speed of iteration over semantic purity.
 ```
-
-## **2. The "Staleness Protocol" (CRITICAL)**
-
-**Rule:** Documentation is useless if it is lies.
-**Agent Action:** Before starting any complex task, verify the "Freshness" of `relations.md`.
-
-1.  **Check Timestamp:** Compare `relations.md` modification time vs the latest `git log`.
-2.  **Trigger:** If > 50 files have changed since the last update, or if the user explicitly asks for a "Deep Refactor", you **MUST** regenerate the `relations.md` file FIRST.
-3.  **Command:** `Refactor: Update Context Graph` (Internal thought process).
-
-## **3. Implementation Details**
-
-### **A. Relations Map (`relations.md`)**
-This is a text-based Graph Database.
-
-*   **Format:**
-    ```markdown
-    ## [Component Name]
-    - **Type**: (Feature | Service | UI | DB)
-    - **Depends On**: [List of Components it calls]
-    - **Used By**: [List of Components that call it]
-    - **Risk Level**: (High | Low)
-    ```
-
-### **B. Tech Stack (`tech-stack.md`)**
-*   **Purpose:** The Single Source of Truth for allowed libraries.
-*   **Format:**
-    ```markdown
-    # Technology Stack
-    ## Core
-    - **Language:** TypeScript 5.x (Decision: User Mandate)
-    - **State:** Zustand (Decision: Framework Default)
-    ```
-*   **Rule:** Agents MUST NOT install new packages without adding them here first.
-
-### **C. Visuals (`diagrams.md`)**
-*   **Tool:** Mermaid.js ONLY.
-*   **Requirement:** Every major "Service" must have a corresponding `sequenceDiagram` showing its data flow.
-
-### **D. Database Schema (`database_schema.md`)**
-*   **Condition:** Only if a Database exists.
-*   **Content:**
-    *   **ER Diagram:** Mermaid `erDiagram`.
-    *   **Spec:** Table definitions, Column types, Indexes (copied from `schema.prisma` or SQL).
-    *   **Purpose:** Allow Agent to write SQL/Queries without guessing table names.
-
-## **4. The Product Trinity (Documentation)**
-The `/documentation` folder MUST contain these three files, generated from the User's Project Brief.
-
-### **A. `product.md` (The Vision)**
-*   **Content:** Target Audience, Value Props, MVP Feature List.
-*   **Rule:** This is the scope boundary. If a feature isn't here, ask before building.
-
-### **B. `product-guidelines.md` (The Vibe)**
-*   **Content:** Visual Identity (Material/Apple), Motion principles, Accessibility goals.
-*   **References:** Must point to `.agent/rules/` for hard technical details (Colors/Fonts).
-
-### **C. `use_cases.md` (The Intent)**
-*   **Format:** User Stories.
-*   **Example:** "As a Admin, I want to ban users so that the platform remains safe."
-*   **Purpose:** The Agent reads this to understand *why* a function exists, preventing "Logic Drift" during refactoring.

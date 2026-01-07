@@ -1,61 +1,39 @@
-# **Protocol: Retrofitting BDD/TDD into Legacy React Code**
+# Protocol: Retrofitting BDD/TDD (v2)
 
-**Objective:** Add test coverage to an existing codebase without breaking current functionality.
+## 1. Core Principles (Invariants)
+*   **Lock-In First:** Document "Reality" (Current Behavior) before improving it.
+*   **No Logic Change:** Do not refactor code in Phase 1. Only add `data-testid` attributes.
+*   **Green Before Red:** The test MUST pass against the legacy code (proving it captures the current state) before you write new features.
 
-## **Phase 1: Infrastructure Setup (Execute First)**
+## 2. Workflow (The Retrofit Cycle)
+1.  **Analyze:** Read legacy component code.
+2.  **Reverse Engineer:** Write `.feature` file describing current behavior (even bugs).
+3.  **Harden:** Add `data-testid` to the legacy component to make it testable to avoid reliance on brittle class names.
+4.  **Lock:** Write Glue Code (`steps.tsx`) and ensure it Passes Green.
+5.  **Refactor (Optional):** NOW you are safe to improve logic.
 
-*Instructions for the Agent:*
+## 3. Directory & Naming
+*   **Attributes:** `data-testid="section-name"`.
+*   **Tests:** `tests/legacy/[feature].feature`.
 
-1. Analyze package.json to check for existing test runners.  
-2. Install the "Modern Stack" if missing:  
-   npm install \-D vitest @testing-library/react @testing-library/jest-dom jsdom vitest-cucumber playwright
+## 4. Forbidden Patterns (Strict)
+1.  **Improvements in Phase 1:** "I fixed a bug while writing the test." **NO.** Document the bug first.
+2.  **Brittle Selectors:** `document.querySelector('.div > span')`. Use `getByTestId`.
+3.  **Mocking Everything:** Mocking internal state instead of testing interactions.
 
-3. Create vitest.config.ts configured for React/JSDOM.  
-4. Create the directory structure tests/features, tests/steps, and tests/e2e.
+## 5. Golden Example (Hardening)
+```tsx
+// BEFORE (Untestable Legacy)
+<button className="btn-primary" onClick={submit}>
+  <span>Submit</span>
+</button>
 
-## **Phase 2: The "Lock-In" Workflow (Repeat for each feature)**
-
-*Instructions for the Agent:*
-
-Target Identification:  
-Identify the "Critical Path" components first (e.g., Login, Checkout, Data Dashboard). Do not start with utility components.  
-**Step 1: Reverse-Engineer Requirements (Generate Gherkin)**
-
-* **Action:** Read the source code for target component (e.g., src/components/PaymentForm.tsx).  
-* **Task:** Create a .feature file that describes *exactly* what the code currently does.  
-* **Constraint:** Do not improve or change the logic yet. Only document current behavior (even if it seems weird).  
-  * *Example:* "Given the user enters an invalid card, Then the error message appears immediately."
-
-**Step 2: Component Hardening (Add Test Attributes)**
-
-* **Action:** If the component relies on obscure CSS classes for selection, add data-testid attributes to the source code to make testing robust.  
-  * *Change:* \<button className="btn-primary-lrg"\> \-\> \<button data-testid="submit-payment" className="btn-primary-lrg"\>
-
-**Step 3: Implement Glue Code (Vitest-Cucumber)**
-
-* **Action:** Write the step definitions using React Testing Library.  
-* **Constraint:** Use screen.getByTestId or screen.getByRole to interact with the elements.
-
-**Step 4: Verification**
-
-* **Action:** Run the test.  
-* **Goal:** The test MUST pass immediately. If it fails, either the test is wrong, or you discovered a bug.  
-  * *If Bug:* Mark it as @bug in the feature file and make the test pass based on the *current buggy behavior* (we fix bugs later; right now we are documenting reality).
-
-## **Phase 3: Integration Safety Net (Playwright)**
-
-Instructions for the Agent:  
-Since the project is in late development, Unit tests might miss context.
-
-1. Create one E2E test file per major user journey.  
-2. Focus on "Happy Paths" (the ideal user journey) to ensure the build doesn't crash.
-
-## **Example Prompt to copy/paste to your Agent:**
-
-"I need to backfill tests for src/components/UserProfile.tsx.
-
-1. Analyze the component code.  
-2. Write a UserProfile.feature file describing its current behavior.  
-3. Add data-testid attributes to the component where necessary for easy selection.  
-4. Write the UserProfile.steps.tsx using Vitest and React Testing Library.  
-5. Ensure the test passes with the current code."
+// AFTER (Hardened)
+<button 
+  data-testid="submit-payment-btn" // Added ID
+  className="btn-primary" 
+  onClick={submit}
+>
+  <span>Submit</span>
+</button>
+```

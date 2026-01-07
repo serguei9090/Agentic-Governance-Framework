@@ -1,58 +1,51 @@
-# **Enterprise Motion System**
+# Enterprise Motion System (v2)
 
-**Objective:** Treat "Animation" as a strict Design Token. Kill ad-hoc `duration={200}` coding styles.
+## 1. Core Principles (Invariants)
+*   **Intent-Based:** No random durations. Animations must mean something (Instant, Fast, Deliberate).
+*   **Reduced Motion:** If user requests `reduce`, all durations MUST be 0ms.
+*   **Non-Blocking:** Interface must remain interactive during animation.
 
-## **1. The Core Philosophy**
-*   **Intent-Based:** We do not define "how fast" (ms), we define "what it means" (Instant, Deliberate).
-*   **Reduced Motion:** All tokens MUST respect `prefers-reduced-motion: reduce`.
-*   **Consistency:** A "Modal" must feel the same across the entire platform.
+## 2. Workflow (Selection)
+1.  **Analyze Interaction:**
+    *   Micro (Hover/Click)? -> `Instant` (100ms).
+    *   Auxiliary (Tooltip)? -> `Fast` (200ms).
+    *   Navigation (Modal)? -> `Deliberate` (400ms).
+2.  **Select Meaning:** Don't just pick a speed, pick the Semantic Token.
+3.  **Apply:** Use CSS Variable or Framer Variant.
 
-## **2. The Motion Tokens (Tier 1.5)**
+## 3. Tokens (Strict)
+| Token | Duration | Use Case |
+| :--- | :--- | :--- |
+| `--motion-instant` | 100ms | Hover, toggle, active. |
+| `--motion-fast` | 200ms | Tooltips, lists. |
+| `--motion-deliberate` | 400ms | Modals, Page changes. |
 
-| Token | Duration | Cubic Easing | Intent / Use Case |
-| :--- | :--- | :--- | :--- |
-| **`--motion-instant`** | **100ms** | `ease-out` | Micro-interactions (Hover, Color Change, Active states). |
-| **`--motion-fast`** | **200ms** | `ease-out` | Auxiliary UI (Tooltips, Dropdown menus, Toasts). |
-| **`--motion-deliberate`** | **400ms** | `ease-in-out` | Navigation (Page transitions, Modal Open, Drawer Slide). |
-| **`--motion-narrative`** | **700ms+** | `spring` | DataViz, Success screens, "Delight" moments. |
+## 4. Forbidden Patterns (Strict)
+1.  **Magic Numbers:** `transition: all 0.3s`. **STOP.** Use `var(--motion-fast)`.
+2.  **Jank:** Animating `width`, `height`, `top`. Only animate `transform` and `opacity`.
+3.  **Unending:** Loops that never stop (Distracting).
 
-## **3. Implementation Standards**
-
-### **A. CSS Variables (Global)**
-```css
-:root {
-  --motion-instant: 100ms ease-out;
-  --motion-fast: 200ms ease-out;
-  --motion-deliberate: 400ms cubic-bezier(0.4, 0.0, 0.2, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --motion-instant: 0ms !important;
-    /* ...all tokens become 0ms */
-  }
-}
-```
-
-### **B. Framer Motion (React)**
-If using React, create a central `packages/ui/src/tokens/motion.ts`:
-
+## 5. Golden Example (Framer Token Map)
 ```typescript
+// packages/ui/src/tokens/motion.ts (Shared Logic)
+
 export const motionTokens = {
-  // Usage: <motion.div variants={motionTokens.fadeIn} ... />
+  // 1. Instant (Micro)
+  hover: { scale: 1.05, transition: { duration: 0.1 } },
+  
+  // 2. Fast (Aux)
   fadeIn: { 
     initial: { opacity: 0 },
-    animate: { opacity: 1, transition: { duration: 0.2 } }, // matches --motion-fast
-    exit: { opacity: 0 }
+    animate: { opacity: 1, transition: { duration: 0.2 } }
   },
-  modalEntry: {
-    initial: { scale: 0.95, opacity: 0 },
-    animate: { scale: 1, opacity: 1, transition: { duration: 0.4 } } // matches --motion-deliberate
+  
+  // 3. Deliberate (Nav)
+  modal: {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
   }
-}
-```
+};
 
-## **4. Usage Rules**
-1.  **NEVER** hardcode durations (e.g., `duration: 0.3`). Always map to a Token.
-2.  **NEVER** block the user. Animations must be non-blocking.
-3.  **ALWAYS** test `prefers-reduced-motion`.
+// Usage
+// <motion.div {...motionTokens.modal} />
+```

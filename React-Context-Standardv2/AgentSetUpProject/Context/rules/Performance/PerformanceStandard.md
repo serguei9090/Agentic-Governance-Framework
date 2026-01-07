@@ -1,52 +1,52 @@
-# **Performance Budget & Hygiene**
+# Performance Budget & Hygiene (v2)
 
-**Objective:** Performance is a feature. Slow apps are buggy apps. We enforce hard thresholds to prevent regression.
+## 1. Core Principles (Invariants)
+*   **Budget is Law:** If metrics exceed thresholds, the build fails.
+*   **Lazy by Default:** All routes and expensive components MUST be lazy loaded.
+*   **Media Optimization:** No raw images. All assets must be compressed (WebP/AVIF) and sized explicitly.
+*   **Virtualization:** Lists > 50 items MUST be virtualized.
 
-## **1. The Budget (Hard Limits)**
+## 2. Workflow (Optimization Cycle)
+1.  **Measure:** Run Lighthouse CI / Web Vitals check.
+2.  **Audit:** Identify Red metrics (LCP > 2.5s, CLS > 0.1).
+3.  **Optimize:** 
+    *   **LCP:** Optimize Hero image using `priority`.
+    *   **CLS:** Add `width/height` to all media.
+    *   **FID:** Code split hydration logic.
+4.  **Verify:** Re-run audit to confirm Green score.
 
-Any Pull Request that causes metrics to exceed these thresholds must be **BLOCKED**.
+## 3. Thresholds (Strict)
+| Metric | Limit (Mobile) | Rationale |
+| :--- | :--- | :--- |
+| **LCP** | < 2.5s | User perception of "Loaded". |
+| **FID** | < 100ms | Input responsiveness. |
+| **CLS** | < 0.1 | Visual stability. |
+| **Bundle** | < 150KB (Initial) | Parse cost. |
 
-| Metric | Target (Mobile) | Target (Desktop) | Rationale |
-| :--- | :--- | :--- | :--- |
-| **LCP** (Largest Contentful Paint) | `< 2.5s` | `< 1.2s` | User perceives load speed here. |
-| **FID** (First Input Delay) | `< 100ms` | `< 50ms` | Interactivity responsiveness. |
-| **CLS** (Cumulative Layout Shift) | `< 0.1` | `< 0.05` | Visual stability. |
-| **JS Bundle Size** (Gzipped) | `< 150KB` (Initial) | `< 300KB` (Total) | Parse/Compile cost on low-end devices. |
+## 4. Forbidden Patterns (Strict)
+1.  **Mega Bundles:** Importing entire libraries (`import _ from 'lodash'`). Use path imports (`import get from 'lodash/get'`).
+2.  **FOIT:** Invisible text. Use `font-display: swap`.
+3.  **Sync Heavy Lifting:** Blocking the main thread with heavy computation. Use `Web Workers`.
+4.  **Layout Thrashing:** Reading/Writing DOM properties in a loop.
 
-## **2. Implementation Directives**
-
-### **A. Code Splitting (Lazy Loading)**
-*   **Rule:** Route-level code splitting is **MANDATORY**.
-*   **Mechanism:** Use `React.lazy` and `Suspense` for all top-level Page components.
-
+## 5. Golden Example (Lazy Loading)
 ```tsx
-// ✅ Correct
-const Dashboard = React.lazy(() => import('./pages/Dashboard'));
-```
+import React, { Suspense } from 'react';
+import { LoadingSpinner } from '@/ui/atoms/LoadingSpinner';
 
-### **B. Asset Optimization**
-*   **Images:** Must use `WebP` or `AVIF`. Must have explicit `width` and `height` to prevent CLS.
-*   **Fonts:** Must use `font-display: swap` to prevent FOIT (Flash of Invisible Text).
+// 1. Lazy Import
+const DashboardAnalytics = React.lazy(() => import('@/features/dashboard/Analytics'));
 
-### **C. Render Optimization**
-*   **Memoization:** Proactively use `useMemo` for any computation > O(n) or complex object derivation.
-*   **Lists:** ALL Lists > 50 items must be **Virtualized** (e.g., `react-window`).
-
-## **3. CI/CD Enforcement (Lighthouse)**
-
-We use **Lighthouse CI (LHCI)** to enforce these rules on every commit.
-
-```yaml
-# .lighthouserc.js example
-module.exports = {
-  ci: {
-    assert: {
-      assertions: {
-        'largest-contentful-paint': ['error', { maxNumericValue: 2500 }],
-        'cumulative-layout-shift': ['error', { maxNumericValue: 0.1 }],
-        'categories:performance': ['error', { minScore: 0.9 }],
-      },
-    },
-  },
+export const DashboardPage = () => {
+  return (
+    <main>
+      <h1>Dashboard</h1>
+      
+      {/* 2. Suspense Boundary */}
+      <Suspense fallback={<LoadingSpinner />}>
+        <DashboardAnalytics />
+      </Suspense>
+    </main>
+  );
 };
 ```

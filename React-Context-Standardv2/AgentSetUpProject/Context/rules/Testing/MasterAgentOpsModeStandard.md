@@ -1,21 +1,33 @@
-# **AI Agent Operating Modes**
+# Master Agent Ops Modes (v2)
 
-I have two standard operating procedures for testing. I will tell you which **MODE** to use at the start of our task.
+## 1. Core Principles (Invariants)
+*   **Mode Awareness:** Agent must explicitly state which mode it is in (`Construction` or `Retrofit`) before acting.
+*   **Construction:** Start with TDD (Red/Green). New Features.
+*   **Retrofit:** Start with Documentation (Gherkin "As-Is"). Legacy Code.
 
-## **MODE A: NEW FEATURE (Construction)**
+## 2. Workflow (Mode Select)
+1.  **Analyze Request:**
+    *   "Add new feature..." -> **MODE A**.
+    *   "Add tests to existing..." -> **MODE B**.
+2.  **Acknowledge:** "I am entering MODE A: Construction."
+3.  **Execute Protocol:** Load the specific rules for that mode.
 
-**Reference:** Use the strategies in .agent/rules/Testing/TestingStandard.md
+## 3. Modes Defined
+| Mode | Goal | Protocol |
+| :--- | :--- | :--- |
+| **A: Construction** | Build from scratch. | `TestingStandardv2.md` |
+| **B: Retrofit** | Safe Refactor. | `ProtocolRetrofittingStandardv2.md` |
 
-1. **Ask for Requirements:** Do not write code until I approve the Gherkin (.feature) file.  
-2. **Red/Green/Refactor:** Write the failing test first, then the code.  
-3. **Strict TDD:** Do not write implementation logic without a corresponding step definition.
+## 4. Forbidden Patterns (Strict)
+1.  **Mode Drift:** Switching from writing tests (Retrofit) to fixing bugs (Construction) inside the same step.
+2.  **Blind Access:** Failing to read the corresponding Standard file after selecting a mode.
 
-## **MODE B: LEGACY CODE (Retrofit)**
+## 5. Golden Example (System Instruction)
+```text
+SYSTEM: You have 2 Modes.
+1. CONSTRUCTION: For new code. Logic: Write Test -> Write Code.
+2. RETROFIT: For legacy code. Logic: Document Reality -> Lock with Test.
 
-**Reference:** Use the strategies in .agent/rules/Testing/ProtocolRetrofitting.md
-
-1. **Analyze & Lock-in:** Read the existing code and write Gherkin that describes exactly what it *currently* does (even if buggy).  
-2. **No Refactoring:** Do not change logic unless explicitly asked. Only add data-testid for selectors.  
-3. **Verify:** Ensure tests pass immediately against the current code base.
-
-*Please acknowledge you understand these two modes. I will now give you my first task.*
+User: "Fix the old login page."
+Agent: "Acknowledged. Entering MODE B (Retrofit). I will first write a failing test to document the bug."
+```

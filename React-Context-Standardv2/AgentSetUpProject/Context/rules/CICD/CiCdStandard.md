@@ -1,31 +1,72 @@
-# **CI/CD Orchestration Governance**
+# CI/CD Orchestration Governance (v2)
 
-**Objective:** Ensure repeatable, deterministic, and secure software delivery.
+## 1. Core Principles (Invariants)
+*   **Immutable Artifacts:** Build once (Docker Image / Binary), deploy everywhere. Inject config at runtime (`ENV`). Never rebuild for Prod.
+*   **Fail Fast:** Pipeline order MUST be: Lint -> Test -> Build -> Deploy. If Lint fails, do not run Tests.
+*   **Infrastructure as Code (IaC):** No manual server setup. All infra defined in Terraform/Helm/Docker-Compose.
 
-## **1. The Core Philosophy**
+## 2. Workflow (The Pipeline Decision Tree)
+1.  **Event:** Push to `main`? -> **Production Release**.
+2.  **Event:** Pull Request? -> **CI Check (Lint + Test)**.
+3.  **Step 1:** Run `gitleaks` & `biome`. (Block on failure).
+4.  **Step 2:** Run `vitest`. (Block on failure).
+5.  **Step 3:** Build Container/Artifact.
+6.  **Step 4:** Push to Registry (DockerHub/ECR).
+7.  **Step 5:** Trigger Deployment (ArgoCD/Vercel).
 
-1.  **Immutable Artifacts:** Once code is built (e.g., Docker Image, EXE, APK), it is **NEVER** modified. Configuration is injected at runtime.
-2.  **Fail Fast:** The pipeline must fail at the earliest possible stage (Linting > Unit Test > Build > E2E > Deploy).
-3.  **Infrastructure as Code (IaC):** No manual server setup. Everything is defined in code (`terraform`, `k8s manifests`, `docker-compose`).
+## 3. Directory & Naming
+*   **Workflows:** `.github/workflows/*.yml` or `.gitlab-ci.yml`.
+*   **Scripts:** `scripts/ci/[name].sh`.
+*   **Secrets:** NEVER commit secrets. Use Repository Secrets (`${{ secrets.API_KEY }}`).
 
-## **2. The "Master Switch" Protocol**
+## 4. Forbidden Patterns (Strict)
+1.  **Works on My Machine:** Using shell commands that only work locally. Use `make` or `npm run` scripts inside Docker.
+2.  **Skipping Tests:** `git push --no-verify` or disabling CI checks for "emergency fixes".
+3.  **Hardcoded Config:** `const API_URL = "http://localhost:3000"`. Use `process.env.API_URL`.
+4.  **Long Lived Branches:** Feature branches living > 2 days without merge.
 
-Configuration is driven by the `CICDTools.md` manifest.
+## 5. Golden Example (The Ideal GitHub Workflow)
+```yaml
+# .github/workflows/ci.yml
+name: CI/CD Pipeline
 
-*   **Level 0 (None):** Local Development only. No pipeline files generated.
-*   **Level 1 (CI Only):** Code Quality Gates.
-    *   *Generates:* lint/test workflows.
-    *   *Goal:* Prevent "It works on my machine" syndrome.
-*   **Level 2 (Full CI/CD):** Automated Delivery.
-    *   *Generates:* Build artifacts + Deployment scripts.
-    *   *Goal:* Zero-touch deployment to Production.
+on:
+  push:
+    branches: [main]
+  pull_request: ~
 
-## **3. Mandatory Gates (If Level >= 1)**
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+      
+      - name: Install
+        run: npm ci
+        
+      - name: Lint & Format (Biome)
+        run: npx @biomejs/biome ci .
+        
+      - name: Type Check
+        run: npx tsc --noEmit
 
-| Gate | Tool | Failure Policy |
-| :--- | :--- | :--- |
-| **Secrets** | `gitleaks` | BLOCK |
-| **Linting** | `eslint` | BLOCK |
-| **Unit Tests** | `vitest` | BLOCK |
-| **Audit** | `npm audit` | BLOCK (Criticals) |
-| **Format** | `prettier` | BLOCK |
+  test:
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+      - run: npm ci
+      - name: Unit Tests
+        run: npm run test:coverage
+
+  build:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build Docker
+        run: docker build -t my-app .
+```

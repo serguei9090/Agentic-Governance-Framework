@@ -1,30 +1,61 @@
-# **Enterprise Database Standards**
+# Enterprise Database Standards (v2)
 
-**Objective:** Ensure reliability, performance, and data integrity in the Persistence Layer.
+## 1. Core Principles (Invariants)
+*   **Connection Pooling:** NEVER open a new connection per request. Use a global singleton.
+*   **Schema as Code:** DB structure is defined ONLY in `schema.prisma`. Manual SQL changes are strictly forbidden.
+*   **Index Strategy:** Foreign keys and WHERE clauses MUST be indexed.
+*   **Strict Typing:** No `JSON` or `Any` types in columns unless absolutely necessary.
 
----
+## 2. Workflow (Migration Cycle)
+1.  **Edit Schema:** Modify `schema.prisma`.
+2.  **Generate Migration:** Run `npx prisma migrate dev --name <kebab-case-desc>`.
+3.  **Review SQL:** Check the generated SQL file for destructive actions (DROP).
+4.  **Update Client:** Run `npx prisma generate` to update types.
+5.  **Commit:** `schema.prisma` AND the migration folder MUST be committed.
 
-## **1. Connection Management**
-*   **Pooling:** NEVER open a new connection per request. Use a singleton Connection Pool.
-*   **Timeouts:** All queries must have a strict timeout (e.g., 5000ms).
-*   **Environment:** use `DATABASE_URL` from `.env`. NEVER hardcode credentials.
+## 3. Directory & Naming
+*   **Schema:** `prisma/schema.prisma`.
+*   **Seeds:** `prisma/seed.ts` (Idempotent logic).
+*   **Tables:** `PascalCase` Models mapped to `snake_case` tables (`@@map("users")`).
 
-## **2. ORM Standards (Prisma/TypeORM)**
-*   **Naming:** Tables are `PascalCase` (Model) or `snake_case` (DB) depending on the DB engine standard. Consistency is key.
-*   **N+1 Problem:** ALWAYS use `include` (Prisma) or `JOIN` (SQL) instead of iterating queries in a loop.
-*   **Validations:** DB constraints (`NOT NULL`, `UNIQUE`) are the last line of defense. Use them.
+## 4. Forbidden Patterns (Strict)
+1.  **Loop Queries (N+1):** `users.map(async u => await db.posts.find(u.id))`. **STOP.** Use `include` or `in` array.
+2.  **Dev in Prod:** `migrate dev` is strictly BANNED in CI/Production. Use `migrate deploy`.
+3.  **Soft Deletes via Flag:** Prefer a separate `DeletedUsers` table or strict Scope if compliance requires it.
+4.  **Implicit Many-to-Many:** Always define the explicit relation table in Prisma to allow metadata (e.g., `UserRoles` with `createdAt`).
 
-## **3. Migration Protocol**
-*   **Production:** NEVER use `migrate dev` in Prod. Use `migrate deploy`.
-*   **Version Control:** `schema.prisma` and migration folders MUST be committed.
-*   **Destructive Changes:** Dropping columns/tables requires a manual backup verification (See `schema-migration` workflow).
+## 5. Golden Example (The Ideal Schema)
+```prisma
+// prisma/schema.prisma
 
-## **4. Indexing Strategy**
-*   **Foreign Keys:** ALways index Foreign Keys.
-*   **Search:** Index fields used in `WHERE` clauses.
-*   **Unique:** `email`, `username`, `uuid` must have unique indexes.
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
-## **5. Documentation (ProDoc Integration)**
-*   **Mandate:** You MUST maintain `ProDoc/relations/database_schema.md`.
-*   **Content:** This file must contain the Mermaid JS ER Diagram + Table List.
-*   **Trigger:** Update this file whenever `schema.prisma` changes.
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  role      Role     @default(USER)
+  posts     Post[]
+  createdAt DateTime @default(now())
+
+  @@index([email]) // Login speed
+  @@map("users")
+}
+
+model Post {
+  id        String   @id @default(uuid())
+  title     String
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  
+  @@index([authorId]) // FK Index
+  @@map("posts")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+```

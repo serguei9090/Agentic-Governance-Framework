@@ -1,53 +1,53 @@
-# **Privacy By Design & Data Governance Protocol**
+# Privacy By Design & Data Governance (v2)
 
-**Objective:** Ensure strict compliance with GDPR, CCPA, and SOC2 by enforcing privacy standards at the code level.
+## 1. Core Principles (Invariants)
+*   **Data Minimization:** Collect only what is needed.
+*   **No Log Mandate:** PII (Personally Identifiable Information) MUST NEVER appear in logs or APM services (Datadog/Sentry).
+*   **Right to Erasure:** Every user entity must support "Hard Delete" cascading to all related records.
+*   **Encryption:** Restricted data (Credit Cards, SSN) must be encrypted at rest and in transit.
 
----
+## 2. Workflow (Data Classification)
+1.  **Analyze Field:** Is it PII? (Email, Phone, IP).
+2.  **Classify:** 
+    *   **L1 (Public):** Blog content. (Safe to Log).
+    *   **L2 (Internal):** IDs, Timestamps. (Safe to Log).
+    *   **L3 (Confidential):** Email, Name. (REDACT in Logs).
+    *   **L4 (Restricted):** Passwords, Financials. (ENCRYPT in DB).
+3.  **Implement Control:** Apply `Scrubber` middleware for L3/L4.
 
-## **1. Data Classification**
-All data models and API fields MUST be classified into one of these levels.
+## 3. Directory & Naming
+*   **Privacy Utils:** `src/utils/privacy/scrubber.ts`.
+*   **Consent:** `src/components/privacy/CookieBanner.tsx`.
+*   **Policies:** `public/legal/privacy-policy.md`.
 
-| Level | Definition | Examples | Handling Rule |
-| :--- | :--- | :--- | :--- |
-| **L1: Public** | Freely accessible. | Blog Posts, Public Profiles. | Cacheable. |
-| **L2: Internal** | Business logic, not sensitive. | IDs, Timestamps, Config. | Loggable (Info). |
-| **L3: Confidential (PII)** | Identifies a user. | Email, Name, IP, Phone. | **NEVER LOG.** Encrypt at rest. |
-| **L4: Restricted** | High risk / Financial. | Password Hash, SSN, Credit Card. | **NEVER LOG.** Strong Encryption. Access Audit required. |
+## 4. Forbidden Patterns (Strict)
+1.  **Raw Logging:** `console.log(userObject)`. **STOP.** This leaks PII.
+2.  **Forever Data:** Tables without `deletedAt` or a purging strategy.
+3.  **Implicit Consent:** Tracking cookies fired before user clicks "Accept".
+4.  **Real Data in Staging:** Using production database dumps without a sanitization script.
 
----
-
-## **2. The "No-Log" Mandate**
-**Rule:** You MUST NOT log PII or Restricted data to `console.log`, file logs, or observability services (Datadog/Sentry).
-
-### **Implementation Pattern**
-Use a scrubber middleware/util.
+## 5. Golden Example (The PII Scrubber)
 ```typescript
-// GOOD
-logger.info("User logged in", { userId: user.id });
+// src/utils/privacy/scrubber.ts
 
-// BAD (Block this in PRs)
-logger.info("User logged in", { userObject: user }); // Dumps email/phone/address
+const PII_KEYS = ['email', 'phone', 'password', 'token', 'creditCard'];
+
+export const scrubLog = (data: any): any => {
+  if (!data || typeof data !== 'object') return data;
+  
+  const clean = { ...data };
+  
+  for (const key in clean) {
+    if (PII_KEYS.includes(key)) {
+      clean[key] = '[REDACTED]';
+    } else if (typeof clean[key] === 'object') {
+      clean[key] = scrubLog(clean[key]); // Recurse
+    }
+  }
+  
+  return clean;
+};
+
+// Usage
+logger.info('User Login', scrubLog(userRequest));
 ```
-
----
-
-## **3. Right to Erasure (GDPR)**
-Every "User" entity MUST have a defined "Soft Delete" and "Hard Delete" strategy.
-
-### **The Protocol**
-1.  **Retention:** User requests deletion -> Account marked `deletedAt: <timestamp>`.
-2.  **The Purge:** A cron job runs daily. If `deletedAt > 30 days`, execute Hard Delete.
-3.  **Scope:** Hard Delete must cascade to **ALL** related tables (Orders, Logs, Analytics) or anonymize them.
-
----
-
-## **4. UI/UX Consents**
-*   **Cookies:** No tracking cookies before explicit consent (Banner).
-*   **Forms:** "I agree to Terms" checkbox is mandatory for signup.
-*   **Portability:** User must be able to "Download My Data" (JSON export).
-
----
-
-## **5. Database Requirements**
-*   **Encryption:** All L3/L4 columns must be encrypted at rest if possible, or the DB volume itself must be encrypted.
-*   **Sanitization:** Developer dumps (staging/local) MUST use a seed script that replaces real emails with `user_{id}@example.com`.
