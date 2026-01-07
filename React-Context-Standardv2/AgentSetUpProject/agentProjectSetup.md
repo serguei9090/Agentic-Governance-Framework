@@ -25,8 +25,11 @@ Methodology: TDD & CI/CD with Local Docker
 
 ### **2\. Code Quality & Hygiene**
 
-* **Linting:** Strict ESLint configuration. No unused variables, mandatory import sorting, explicit return types.  
-* **Formatting:** Prettier must be run on save.  
+* **Linting & Formatting (Hybrid):** STRICT `Biome` enforcement. No ESLint/Prettier unless explicitly requested for legacy support.
+* **Biome Config:**
+  *   **Linter:** Enabled (Recommended constraints).
+  *   **Formatter:** Enabled (Prettier compatible).
+  *   **Import Sorting:** Enabled (Organization).  
 * **Clean Code:**  
   * **DRY (Don't Repeat Yourself):** Logic used in more than two places moves to packages/core.  
   * **Descriptive Naming:** getUserById instead of getData.  
@@ -39,8 +42,9 @@ Methodology: TDD & CI/CD with Local Docker
   1. **RED:** Write a failing unit test that describes the desired behavior *before* creating the function.  
   2. **GREEN:** Write the minimum code necessary to pass the test.  
   3. **REFACTOR:** Clean up the code while keeping the test green.  
-* **Unit Tests:** Jest or Vitest. Mock all external dependencies. Focus on logic in packages/core.  
-* **E2E / User Tests:** Playwright. Tests user flows (Login \-\> Dashboard \-\> Logout) in a real browser environment.  
+* **Unit Tests (Web/Desktop):** `Vitest`. Fast, modern, compatible with Jest API.
+* **Unit Tests (Mobile):** `Jest`. (Industry standard for React Native).
+* **E2E / User Tests:** Playwright. Tests user flows (Login -> Dashboard -> Logout) in a real browser environment.
 * **Code Coverage:** Minimum **80%** branch coverage required for passing the pipeline.
 
 ### **4\. Backend & Security**
@@ -93,15 +97,16 @@ Requirements:
 * Use TypeScript interfaces.  
 * **Output File:** packages/ui/src/components/Button/Button.tsx (and .native.tsx counterpart).
 
-### **Directive 3: Generate jest.config.js (Unit Testing)**
+### **Directive 3: Generate vitest.config.ts (Unit Testing)**
 
-Task: Configure the Unit Test Runner.  
+Task: Configure the Unit Test Runner (Web/Core).
 Requirements:
 
-* Enable coverage collection.  
-* Set coverage threshold to 80% global.  
-* Map module aliases (e.g., @core/\* \-\> packages/core/src/\*).  
-* **Output File:** jest.config.js
+*   **Config:** Use `defineConfig` from `vitest/config`.
+*   **Environment:** `jsdom` (Simulate Browser).
+*   **Coverage:** Enable v8 coverage, set threshold to 80%.
+*   **Aliases:** Resolve `@/*` to `./src/*`.
+*   **Output File:** `vitest.config.ts`
 
 ### **Directive 4: Generate playwright.config.ts (E2E Testing)**
 
@@ -157,14 +162,21 @@ Requirements:
 *   **Create File:** `apps/web/src/main.tsx` (React Root).
 *   **Create File:** `apps/web/src/App.tsx` (Hello World component).
 
-### **Directive 9: Generate .eslintrc.cjs (Root Linting)**
+### **Directive 9: Generate biome.json (Root Linting)**
 
-Task: Create the Universal Lint Config.
+Task: Create the Universal Quality Config.
 Requirements:
-*   **Create File:** `.eslintrc.cjs`
+*   **Create File:** `biome.json`
 *   **Content:**
-    *   Extend: `eslint:recommended`, `plugin:@typescript-eslint/recommended`, `plugin:react-hooks/recommended`.
-    *   Ignore Patterns: `dist`, `node_modules`, `coverage`.
+    ```json
+    {
+      "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+      "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+      "formatter": { "enabled": true, "indentStyle": "space" },
+      "organizeImports": { "enabled": true },
+      "linter": { "enabled": true, "rules": { "recommended": true } }
+    }
+    ```
 
 ### **Directive 10: Configure TurboRepo (The Build System)**
 
@@ -260,28 +272,40 @@ stages:
 1.  **Frontend/Root:** `npm install`
 
 ### **Phase 3: QA & DX Setup (The Safety Net)**
-1.  **Lefthook (Git Hooks):**
+1.  **Lefthook (Orchestrator):**
     *   Install: `npm install -D lefthook`
-    *   Config: Create `lefthook.yml`. Map `pre-commit` to `npx lint-staged`.
-2.  **Lint-Staged (Atomic Speed):**
+    *   Config: Create `lefthook.yml`.
+        ```yaml
+        pre-commit:
+          parallel: true
+          commands:
+            check:
+              run: npx lint-staged
+        ```
+2.  **Lint-Staged (Filter):**
     *   Install: `npm install -D lint-staged`
     *   Config: Create `.lintstagedrc`.
     *   *Rule:* 
         ```json
         {
-          "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write", "npm test -- --bail --findRelatedTests"],
-          "*.{json,md,yml,css,scss}": ["prettier --write"]
+          "*.{js,ts,tsx,jsx,json,css}": ["biome check --write --no-errors-on-unmatched"],
+          "*.{ts,tsx}": ["vitest related --run"]
         }
         ```
-        *   *Note on Testing:* The `--findRelatedTests` flag tells Jest to run **only** the unit tests related to the changed files. This is fast and ensures you don't break existing logic you touched. Full coverage checks are reserved for the CI pipeline.
-3.  **Editor Config:**
-    *   Generate `.vscode/settings.json` with `"editor.formatOnSave": true`.
-    *   Generate `.vscode/extensions.json` recommending `dbaeumer.vscode-eslint` and `esbenp.prettier-vscode`.
+3.  **Editor Config (VS Code):**
+    *   Generate `.vscode/settings.json` with:
+        ```json
+        {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "biomejs.biome"
+        }
+        ```
+    *   Generate `.vscode/extensions.json` recommending `biomejs.biome`.
 
 ### **Phase 4: Testing Infrastructure**
-1.  **React Testing Library:**
-    *   Install: `npm install -D @testing-library/react @testing-library/jest-dom jsdom`
-    *   Setup: Create `apps/web/src/setupTests.ts` { import '@testing-library/jest-dom'; }
+1.  **Vitest Injection:**
+    *   Install: `npm install -D vitest @vitest/coverage-v8 @testing-library/react @testing-library/jest-dom jsdom`
+    *   Setup: Create `apps/web/src/test/setup.ts` { import '@testing-library/jest-dom'; }
     *   Create a dummy test `apps/web/src/App.test.tsx` to confirm the runner passes.
 
 ### **Phase 5: Scripts & Orchestration (Monorepo Powers)**
