@@ -110,7 +110,7 @@ Requirements:
     ruff
     mypy
     python-dotenv
-    lefthook
+    pre-commit
     ```
 
 ### **Directive 3: Generate docker-compose.ci.yml (Local CI/CD)**
@@ -122,22 +122,26 @@ Requirements:
 *   **Command:** A script that runs the full workflow (Lint -> Test).
 *   **Output File:** `docker-compose.ci.yml`
 
-### **Directive 4: Scaffold Lefthook (Git Hooks)**
+### **Directive 4: Scaffold Pre-Commit**
 
-Task: Configure pre-commit hooks.
+Task: Configure git hooks.
 Requirements:
-*   **Create File:** `lefthook.yml`
+*   **Create File:** `.pre-commit-config.yaml`
 *   **Content:**
     ```yaml
-    pre-commit:
-    parallel: true
-    commands:
-        lint:
-        glob: "*.py"
-        run: ruff check --fix {staged_files} && ruff format {staged_files} && git add {staged_files}
-        type-check:
-        glob: "*.py"
-        run: mypy {staged_files}
+    repos:
+      - repo: https://github.com/astral-sh/ruff-pre-commit
+        rev: v0.1.6
+        hooks:
+          - id: ruff
+            args: [--fix, --exit-non-zero-on-fix]
+          - id: ruff-format
+      - repo: https://github.com/pre-commit/mirrors-mypy
+        rev: v1.7.1
+        hooks:
+          - id: mypy
+            args: [--ignore-missing-imports]
+            additional_dependencies: [pydantic]
     ```
 
 ## **PART 3: The Master Workflow File**
@@ -191,8 +195,8 @@ stages:
 2.  **Reflex Init:** `reflex init` (Only if not already scaffolded).
 
 ### **Phase 3: QA Setup**
-1.  **Lefthook:**
-    *   `lefthook install`
+1.  **Pre-Commit:**
+    *   `pre-commit install`
 2.  **Validation:**
     *   Run `ruff check .` to verify linting.
     *   Run `pytest` to verify test runner.

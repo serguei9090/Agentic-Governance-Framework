@@ -327,20 +327,14 @@ stages:
         pre-commit:
           parallel: true
           commands:
-            check:
-              run: [EXECUTE_CMD] lint-staged
+            biome:
+              glob: "*.{js,ts,tsx,jsx,json,css}"
+              run: [EXECUTE_CMD] biome check --write --no-errors-on-unmatched {staged_files} && [PKG_MANAGER] run build
+            test:
+              glob: "*.{ts,tsx}"
+              run: [EXECUTE_CMD] vitest related --run {staged_files}
         ```
-2.  **Lint-Staged (Filter):**
-    *   Install: `[PKG_MANAGER] install -D lint-staged`
-    *   Config: Create `.lintstagedrc`.
-    *   *Rule:* 
-        ```json
-        {
-          "*.{js,ts,tsx,jsx,json,css}": ["biome check --write --no-errors-on-unmatched"],
-          "*.{ts,tsx}": ["vitest related --run"]
-        }
-        ```
-3.  **Editor Config (VS Code):**
+2.  **Editor Config (VS Code):**
     *   Generate `.vscode/settings.json` with:
         ```json
         {
