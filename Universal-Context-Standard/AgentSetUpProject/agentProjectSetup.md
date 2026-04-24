@@ -1,6 +1,6 @@
 # **Master Software Engineering Protocol**
 
-Project Type: React Monorepo (Mobile/Desktop/Core)
+Project Type: [PROJECT_TYPE]
 Architecture: Atomic Design (3-Tier)
 Methodology: TDD & CI/CD with Local Docker
 
