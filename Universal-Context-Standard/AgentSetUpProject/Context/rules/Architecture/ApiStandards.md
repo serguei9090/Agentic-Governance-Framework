@@ -13,7 +13,7 @@
     *   `500` Internal Error (Bug)
 
 ## 2. Workflow (Endpoint Creation)
-1.  **Define Schema:** Write the `zod` validation schema for Input/Output.
+1.  **Define Schema:** Write the validation schema for Input/Output.
 2.  **Define Protocol:** Select Method (GET/POST) and Route (`/api/v1/resource`).
 3.  **Implement Handler:**
     *   Validate Input (`schema.parse`).
