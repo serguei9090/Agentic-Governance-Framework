@@ -1,7 +1,7 @@
 # Code Quality Framework (v2)
 
 ## 1. Core Principles (Invariants)
-*   **One Tool:** Use `Biome` for both Linting and Formatting. (Speed > Granularity).
+*   **One Tool:** Use `[LINTER]` for both Linting and Formatting. (Speed > Granularity).
 *   **Zero Bugs:** Reliability Rating MUST be A.
 *   **Zero Debt:** Technical Debt Ratio < 5%.
 *   **Local Enforcement:** Hooks (Lefthook) must catch errors BEFORE they reach CI.
