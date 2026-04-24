@@ -1,1 +1,16 @@
-mock*
+.DS_Store
+node_modules/
+dist/
+build/
+__pycache__/
+*.pyc
+venv/
+.env
+coverage/
+test_files.py
+update_rules.py
+output.txt
+Universal-Context-Standard/AgentSetUpProject/
+Backup/
+Backup/
+Universal-Context-Standard/
