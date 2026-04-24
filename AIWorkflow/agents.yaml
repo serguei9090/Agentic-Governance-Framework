@@ -1,0 +1,41 @@
+# Antigravity Agent HAL (Hardware Abstraction Layer) Schema v1.0
+# This file decouples the agent's logic from project-specific environment paths.
+
+project:
+  name: Antigravity AI Workflow
+  version: 2.0-Alpha
+  root: "i:/01-Master_Code/General/AIWorkflow"
+  docs_path: "${project.root}/docs"
+  agent_path: "${project.root}/.agents"
+  gemini_path: "${project.root}/.gemini"
+
+environments:
+  default:
+    shell: "powershell"
+    interactive: false
+    safe_to_run: true # Global override for SafeToAutoRun if necessary
+
+binaries:
+  # Mapping standard tool names to project-specific CLI commands
+  git: "git"
+  uv: "uv run"
+  bun: "bun x"
+  biome: "biome"
+  ruff: "ruff"
+  jules: "jules"
+  gemini: "gemini"
+
+telemetry:
+  enabled: true
+  path: "${project.docs_path}/track/telemetry.csv"
+
+# Handoff Configuration
+handoff:
+  manifest_path: "${project.root}/temp/handoff.json"
+  auto_generate: true
+
+# Context Optimization Settings
+context_optimization:
+  decay_threshold_tasks: 50
+  max_rules_per_context: 20
+  pruning_mode: "soft" # soft-archive vs hard-delete
