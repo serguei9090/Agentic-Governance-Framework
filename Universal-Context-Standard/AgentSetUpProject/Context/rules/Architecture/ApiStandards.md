@@ -60,7 +60,7 @@ export async function POST(req: Request) {
 
   } catch (error) {
     // 5. Centralized Error Mapping
-    if (error instanceof z.ZodError) {
+    if (error instanceof [VALIDATION_ERROR_TYPE]) {
       return NextResponse.json({ error: "Validation Failed", details: error.errors }, { status: 400 });
     }
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
