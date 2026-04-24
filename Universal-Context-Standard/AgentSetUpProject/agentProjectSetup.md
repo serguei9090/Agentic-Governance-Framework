@@ -332,7 +332,7 @@ stages:
               run: [EXECUTE_CMD] [LINTER] check --write --no-errors-on-unmatched {staged_files} && [PKG_MANAGER] run build
             test:
               glob: "*.{ts,tsx}"
-              run: [EXECUTE_CMD] [EXECUTE_CMD] [TEST_RUNNER] related --run {staged_files}
+              run: [EXECUTE_CMD] [TEST_RUNNER] related --run {staged_files}
         ```
 2.  **Editor Config (VS Code):**
     *   Generate `.vscode/settings.json` with:
