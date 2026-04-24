@@ -14,7 +14,7 @@ This is a new project setup.
     *   [x] **Deploy Planning Protocol:** (Default: Checked) If checked, ensure `.agent/workflows/PlanningProtocol.md` is active and referenced in `AGENTS.MD`.
 
 3. Use @[AgentSetUpProject/agentProjectSetup.md] to scaffold the codebase (directories, config, button component).
-17. Use user project requirements @[LogVibeAnalyzerProject.md] to generate proper project files.
+4. Use user project requirements @[LogVibeAnalyzerProject.md] to generate proper project files.
 5. **Final Verification Protocol (The Double-Check):**
     *   **Action:** Generate a `setup_checklist.md` file at the **PROJECT ROOT** (same level as `AGENTS.MD`).
     *   **Content:** This file **MUST** explicitly list every critical asset requested in this setup (e.g., `.agent/`, `AGENTS.MD`, `apps/`, `packages/`, `ProDoc/`, `ProDoc/documentation/product.md`).
