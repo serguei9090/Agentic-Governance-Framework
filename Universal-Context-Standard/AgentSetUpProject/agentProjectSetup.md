@@ -329,7 +329,7 @@ stages:
           commands:
             biome:
               glob: "*.{js,ts,tsx,jsx,json,css}"
-              run: [EXECUTE_CMD] [EXECUTE_CMD] [LINTER] check --write --no-errors-on-unmatched {staged_files} && [PKG_MANAGER] run build
+              run: [EXECUTE_CMD] [LINTER] check --write --no-errors-on-unmatched {staged_files} && [PKG_MANAGER] run build
             test:
               glob: "*.{ts,tsx}"
               run: [EXECUTE_CMD] [EXECUTE_CMD] [TEST_RUNNER] related --run {staged_files}
