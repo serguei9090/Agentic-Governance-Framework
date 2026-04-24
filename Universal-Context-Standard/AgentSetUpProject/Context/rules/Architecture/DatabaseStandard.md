@@ -18,7 +18,7 @@
 *   **Seeds:** `[DB_SCHEMA_DIR]/seed.[EXT]` (Idempotent logic).
 *   **Tables:** `PascalCase` Models mapped to `snake_case` tables (`@@map("users")`).
 
-## 4. Forbidden Patterns (Strict)
+2. **Implicit Many-to-Many:** Always define the explicit relation table in [ORM] to allow metadata (e.g., `UserRoles` with `createdAt`).
 1.  **Loop Queries (N+1):** `users.map(async u => await db.posts.find(u.id))`. **STOP.** Use `include` or `in` array.
 2.  **Dev in Prod:** `migrate dev` is strictly BANNED in CI/Production. Use `migrate deploy`.
 3.  **Soft Deletes via Flag:** Prefer a separate `DeletedUsers` table or strict Scope if compliance requires it.
