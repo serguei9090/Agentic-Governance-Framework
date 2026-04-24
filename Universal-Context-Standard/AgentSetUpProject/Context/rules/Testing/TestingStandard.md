@@ -3,8 +3,8 @@
 ## 1. Core Principles (Invariants)
 *   **Behavior Over Implementation:** Test *what* it does (User flows), not *how* it does it (Internal state).
 *   **The "Pyramid":**
-    1.  **Unit (Speed):** `Vitest`. Test pure logic, utils, and isolated components. Mock all network/IO.
-    2.  **Integration/E2E (Reality):** `Playwright`. Test full user flows in real browser context.
+    1.  **Unit (Speed):** `[TEST_RUNNER]`. Test pure logic, utils, and isolated components. Mock all network/IO.
+    2.  **Integration/E2E (Reality):** `[E2E_TEST_RUNNER]`. Test full user flows in real browser context.
 *   **Zero Flake:** Tests must be deterministic. If a test is flaky, fix it immediately or delete it.
 
 ## 2. File Standards
