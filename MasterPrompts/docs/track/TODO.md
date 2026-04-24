@@ -1,7 +1,7 @@
 # System TODO Tracker
 
 This document tracks active development tasks across the Antigravity framework.
-Every task must have a corresponding Detail File in `docs/TODOC/<ID>.md`.
+Every task must have a corresponding Detail File in `docs/track/specs/<ID>.md`.
 
 ## Active Sprints & Tasks
 
@@ -16,4 +16,5 @@ Every task must have a corresponding Detail File in `docs/TODOC/<ID>.md`.
 - [x] **CORE_001**: Initialize `AGENTS.md` Source of Truth.
 - [x] **CORE_002**: Initialize tracking layers (`TODO.md`, `JULES.md`).
 - [x] **WORKFLOW_001**: Improve AI Workflow with stricter rules, personas, and architecture tracking.
+- [x] **REORG_001**: Sanitize and organize Master Agent Workflows and Rules (Categorization, Naming, Deduplication).
 
